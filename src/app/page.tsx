@@ -1,9 +1,16 @@
+'use client';
+
 import React from 'react';
 import ContentLayout from '@/components/ContentLayout';
 import SalesReportsChart from '@/components/SalesReportsChart';
 import AnalyticsDoughnutChart from '@/components/AnalyticsDoughnutChart';
-import Card from '@/components/Card'; // Cardコンポーネントをインポート
-import { DropdownMenuItem/*, DropdownMenuSeparator*/ } from '@/components/ui/dropdown-menu';
+import Card from '@/components/Card';
+import StatisticsCard from '@/components/StatisticsCard'; // StatisticsCardをインポート
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { IoHeart } from 'react-icons/io5'; // IoHeartをインポート
+import { HiBriefcase } from 'react-icons/hi'; // HiBriefcaseをインポート
+import { BsChatDotsFill } from 'react-icons/bs'; // BsChatDotsFillをインポート
+import { IoNotifications } from 'react-icons/io5'; // IoNotificationsをインポート
 
 export default function Home() {
   return (
@@ -11,10 +18,34 @@ export default function Home() {
       <div className="p-4">
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-          <div className="bg-white p-4 rounded-lg shadow">統計カード1</div>
-          <div className="bg-white p-4 rounded-lg shadow">統計カード2</div>
-          <div className="bg-white p-4 rounded-lg shadow">統計カード3</div>
-          <div className="bg-white p-4 rounded-lg shadow">統計カード4</div>
+          <StatisticsCard
+            icon={IoHeart}
+            value="178+"
+            label="Favorites"
+            iconBgColor="bg-blue-100"
+            iconColor="text-blue-600"
+          />
+          <StatisticsCard
+            icon={BsChatDotsFill}
+            value="20+"
+            label="Messages"
+            iconBgColor="bg-yellow-100"
+            iconColor="text-yellow-600"
+          />
+          <StatisticsCard
+            icon={IoNotifications}
+            value="190+"
+            label="Notifications"
+            iconBgColor="bg-red-100"
+            iconColor="text-red-600"
+          />
+          <StatisticsCard
+            icon={HiBriefcase}
+            value="12+"
+            label="Jobs"
+            iconBgColor="bg-purple-100"
+            iconColor="text-purple-600"
+          />
         </div>
 
         {/* Reports and Analytics */}
