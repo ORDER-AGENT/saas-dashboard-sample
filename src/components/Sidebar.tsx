@@ -1,8 +1,5 @@
 'use client';
 
-import { FiUsers } from 'react-icons/fi';
-import { RxDashboard } from 'react-icons/rx';
-import { AiOutlineHome } from 'react-icons/ai';
 import { TbLogin2, TbLogout2 } from 'react-icons/tb';
 import React, { useState, useEffect } from 'react';
 import SidebarMenuItem from './SidebarMenuItem';
@@ -12,6 +9,10 @@ import SidebarContent from './SidebarContent';
 import SidebarHeader from './SidebarHeader';
 import { usePathname } from 'next/navigation';
 import useMediaQuery from '@/hooks/useMediaQuery';
+import {
+  getSidebarMenuItems,
+  SidebarMenuItemType,
+} from '@/data/sidebarMenuItems';
 
 interface SidebarProps {
   onMenuToggleClick: () => void; // AppHeader に渡すためのプロップ
@@ -30,6 +31,9 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
 
   // ログイン状態を判定
   const isLoggedIn = status === 'authenticated';
+
+  // ログイン状態に基づいてロールを決定（暫定対応）
+  const userRoles = isLoggedIn ? ['admin', 'guest'] : ['guest'];
 
   // ログイン/ログアウトメニュー項目をレンダリングするヘルパー関数
   const renderAuthMenuItem = (isMenuOpenForText: boolean, keyPrefix: string) => {
@@ -100,35 +104,10 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   // 静的なメニュー項目データを定義
-  const staticMenuItems = [
-    {
-      key: 'home',
-      icon: () => <AiOutlineHome className="size-6" />,
-      text: 'ホーム',
-      path: '/',
-      isDynamic: false,
-    },
-    // isLoggedIn (管理者) の場合のみ 'ダッシュボード' を表示
-    ...(isLoggedIn
-      ? [{
-          key: 'dashboard',
-          icon: () => <RxDashboard className="size-6" />,
-          text: 'ダッシュボード',
-          path: '/dashboard',
-          isDynamic: false,
-        }]
-      : []),
-    {
-      key: 'users',
-      icon: () => <FiUsers className="size-6" />,
-      text: 'ユーザー',
-      path: '/users',
-      isDynamic: false,
-    },
-  ];
+  const menuItems: SidebarMenuItemType[] = getSidebarMenuItems(userRoles);
 
   // すべてのメニュー項目を結合（動的メニューがある場合は追加）
-  const menuItems = [...staticMenuItems /*, ...dynamicMenuItems*/];
+  // const menuItems = [...staticMenuItems /*, ...dynamicMenuItems*/];
 
   // メニュー項目クリックハンドラを共通化
   const handleMenuItemClick = (key: string) => {

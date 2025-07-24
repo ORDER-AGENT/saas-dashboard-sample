@@ -3,10 +3,11 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { IconType } from 'react-icons'; // IconType をインポート
 
 // SidebarMenuItemコンポーネントのPropsの型定義
 interface SidebarMenuItemProps {
-  icon: () => React.ReactElement; // アイコンを返す関数として型を統一
+  icon: IconType; // IconTypeを直接使用
   text: string; // メニュー項目テキスト
   isMenuOpen: boolean; // メニューが開いているか
   isSelected: boolean; // 選択されているか
@@ -36,7 +37,7 @@ export default function SidebarMenuItem({
   const itemBaseClasses = `
     flex items-center justify-start pl-5 relative overflow-hidden
     transition-all duration-150 ease-in-out
-    ${isSelected ? 'text-blue-700' : 'text-gray-600'}
+    ${isSelected ? 'text-blue-700' : 'text-gray-500/90 hover:text-gray-600'} // ホバー時のテキスト色を追加
     ${isMenuOpen ? 'h-[40px] w-full' : 'h-[40px] w-full'}
   `;
 
@@ -89,10 +90,10 @@ export default function SidebarMenuItem({
       onMouseLeave={onMouseLeave}
     >
       {isSelected && (
-        <div className="absolute inset-y-0 left-0 w-[60px] bg-gradient-to-r from-[#ACA9FF]/20 to-transparent" />
+        <div className="absolute inset-y-0 left-0 w-[60px] bg-gradient-to-r from-[#ACA9FF]/40 to-transparent" />
       )}
       <div className={iconClasses}>
-        {Icon()}
+        <Icon className="size-6" />
       </div>
       <span className={textClasses}>{text}</span>
       {/* ホバー時に表示する擬似要素 */}

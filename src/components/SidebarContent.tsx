@@ -2,16 +2,11 @@
 
 import React from 'react';
 import SidebarMenuItem from './SidebarMenuItem';
-import { BeatLoader } from 'react-spinners'; // BeatLoaderをインポート
+import { BeatLoader } from 'react-spinners';
+import { SidebarMenuItemType } from '@/data/sidebarMenuItems';
 
 interface SidebarContentProps {
-  menuItems: {
-    key: string;
-    icon: () => React.ReactElement;
-    text: string;
-    path: string;
-    isDynamic: boolean;
-  }[];
+  menuItems: SidebarMenuItemType[]; // 型を SidebarMenuItemType[] に変更
   selectedItem: string;
   hoveredItem: string | null;
   onMouseEnter: (key: string) => void;
