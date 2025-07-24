@@ -172,12 +172,12 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
     <>
       {/* 大中画面用サイドバー (md以上で表示) */}
       <div
-        className={`hidden md:flex lg:flex flex-col fixed left-0 top-[60px] h-[calc(100dvh-60px)] bg-white flex-shrink-0 z-12 transition-all duration-150 ease-in-out
+        className={`hidden md:flex lg:flex flex-col fixed left-0 top-[var(--header-height)] h-[calc(100dvh-var(--header-height))] bg-white flex-shrink-0 z-12 transition-all duration-150 ease-in-out
           ${isMenuOpen ? 'lg:w-[250px] md:w-[60px]' : 'w-[60px]'}`}
       >
 
         {/* メニュー項目をループでレンダリングするエリア */}
-        <div className="absolute top-0 bottom-[60px] left-0 w-full overflow-y-auto overflow-x-hidden flex flex-col items-start">
+        <div className="absolute top-0 bottom-[var(--header-height)] left-0 w-full overflow-y-auto overflow-x-hidden flex flex-col items-start">
           <SidebarContent
             menuItems={menuItems}
             selectedItem={selectedItem}
@@ -191,7 +191,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         </div>
 
         {/* ログイン/ログアウトボタンをサイドバー全体の最下部に追加 */}
-        <div className="w-full h-[60px] bg-white flex items-center z-10 mt-auto">
+        <div className="w-full h-[var(--header-height)] bg-white flex items-center z-10 mt-auto">
           {
             renderAuthMenuItem(isMenuOpen, 'desktop')
           }
@@ -229,7 +229,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
                 />
               </div>
               {/* ログイン/ログアウトボタンをサイドメニュー最下部に追加（小画面用） */}
-              <div className="w-full h-[60px] flex-shrink-0 bg-white mt-auto flex items-center">
+              <div className="w-full h-[var(--header-height)] flex-shrink-0 bg-white mt-auto flex items-center">
                 {
                   renderAuthMenuItem(true, 'mobile')
                 }
