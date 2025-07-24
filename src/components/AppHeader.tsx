@@ -68,7 +68,7 @@ export default function AppHeader({ onMenuToggleClick }: AppHeaderProps) {
       <div className="flex items-center flex-shrink-0 w-[250px]">
         <MenuToggleButton onClick={onMenuToggleClick} />
         <Link href="/">
-          <div className="relative w-[80px] ml-0">
+          <div className="relative w-[60px] ml-0">
             <Image
               src="/logo.svg"
               alt="Logo"
