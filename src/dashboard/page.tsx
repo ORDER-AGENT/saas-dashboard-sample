@@ -1,10 +1,10 @@
 import React from 'react';
 import ContentLayout from '@/components/ContentLayout';
 
-export default function Home() {
+export default function DashboardPage() {
   return (
     <ContentLayout>
-      <p>これはホームの仮ページです。</p>
+      <p>これはログインしたら見れるダッシュボードの仮ページです。</p>
     </ContentLayout>
   );
 }
