@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { AreaChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, TooltipProps, ResponsiveContainer, Area } from 'recharts';
+//import React, { useState, useEffect } from 'react';
+import { AreaChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area } from 'recharts';
 import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
+import Card from '@/components/Card';
+import { DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 
 
 // グラフのダミーデータ
@@ -55,52 +57,66 @@ const CustomTooltip = ({ active, payload, coordinate }: CustomTooltipProps) => {
   return null;
 };
 
+/*type SalesReportsChartProps = {
+  title?: string;
+};
+*/
+
 // グラフコンポーネントの例
-const SalesReportsChart: React.FC = () => {
+const SalesReportsChart/*: React.FC<SalesReportsChartProps>*/ = () => {
+  // ドロップダウンメニューの項目をコンポーネント内部で定義
+  const dropdownItems = [
+    <DropdownMenuItem key="report-1">レポートオプション1</DropdownMenuItem>,
+    <DropdownMenuItem key="report-2">レポートオプション2</DropdownMenuItem>,
+    <DropdownMenuSeparator key="report-separator" />,
+    <DropdownMenuItem key="report-3">レポートオプション3</DropdownMenuItem>,
+  ];
+
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <AreaChart
-        data={salesData}
-        margin={{
-          top: 10,
-          right: 30,
-          left: 0,
-          bottom: 0,
-        }}
-      >
-        <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#e0e0e0" />
-        <XAxis dataKey="time" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
-        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
-        <Tooltip
-          isAnimationActive={true}
-          animationDuration={300}
-          animationEasing="ease-in-out"
-          allowEscapeViewBox={{ x: true, y: true }}
-          cursor={{ stroke: 'gray', strokeWidth: 1, strokeDasharray: '5' }}
-          // contentにコンポーネントを直接渡す
-          content={<CustomTooltip />}
-        />
-        <defs>
-          <linearGradient id="salesGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#5BC4FF" stopOpacity={1} />
-            <stop offset="100%" stopColor="#FF5BEF" stopOpacity={1} />
-          </linearGradient>
-          <linearGradient id="areaGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="5%" stopColor="#5BC4FF" stopOpacity={0.1}/>
-            <stop offset="95%" stopColor="#FF5BEF" stopOpacity={0.1}/>
-          </linearGradient>
-        </defs>
-        <Area type="monotone" dataKey="sales" stroke="none" fill="url(#areaGradient)" />
-        <Line
-          type="monotone"
-          dataKey="sales"
-          stroke="url(#salesGradient)"
-          strokeWidth={4}
-          dot={{ stroke: 'url(#salesGradient)', strokeWidth: 2, r: 5, fill: '#fff' }}
-          activeDot={{ r: 8, stroke: 'url(#salesGradient)', fill: '#fff' }}
-        />
-      </AreaChart>
-    </ResponsiveContainer>
+    <Card title="レポート" dropdownItems={dropdownItems}>
+      <ResponsiveContainer width="100%" height={300}>
+        <AreaChart
+          data={salesData}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 0,
+            bottom: 0,
+          }}
+        >
+          <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#e0e0e0" />
+          <XAxis dataKey="time" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
+          <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
+          <Tooltip
+            isAnimationActive={true}
+            animationDuration={300}
+            animationEasing="ease-in-out"
+            allowEscapeViewBox={{ x: true, y: true }}
+            cursor={{ stroke: 'gray', strokeWidth: 1, strokeDasharray: '5' }}
+            content={<CustomTooltip />}
+          />
+          <defs>
+            <linearGradient id="salesGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#5BC4FF" stopOpacity={1} />
+              <stop offset="100%" stopColor="#FF5BEF" stopOpacity={1} />
+            </linearGradient>
+            <linearGradient id="areaGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="5%" stopColor="#5BC4FF" stopOpacity={0.1}/>
+              <stop offset="95%" stopColor="#FF5BEF" stopOpacity={0.1}/>
+            </linearGradient>
+          </defs>
+          <Area type="monotone" dataKey="sales" stroke="none" fill="url(#areaGradient)" />
+          <Line
+            type="monotone"
+            dataKey="sales"
+            stroke="url(#salesGradient)"
+            strokeWidth={4}
+            dot={{ stroke: 'url(#salesGradient)', strokeWidth: 2, r: 5, fill: '#fff' }}
+            activeDot={{ r: 8, stroke: 'url(#salesGradient)', fill: '#fff' }}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </Card>
   );
 };
 
