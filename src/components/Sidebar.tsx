@@ -173,7 +173,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
       {/* 大中画面用サイドバー (md以上で表示) */}
       <div
         className={`hidden md:flex lg:flex flex-col fixed left-0 top-[var(--header-height)] h-[calc(100dvh-var(--header-height))] bg-white flex-shrink-0 z-12 transition-all duration-150 ease-in-out
-          ${isMenuOpen ? 'lg:w-[250px] md:w-[60px]' : 'w-[60px]'}`}
+          ${isMenuOpen ? 'lg:w-[var(--sidebar-width-open)] md:w-[var(--sidebar-width-closed)]' : 'w-[var(--sidebar-width-closed)]'}`}
       >
 
         {/* メニュー項目をループでレンダリングするエリア */}
@@ -208,7 +208,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
             onClick={onMenuToggleClick}
           />
           <div
-            className={`fixed top-0 left-0 h-[100dvh] w-[250px] bg-white z-16 flex flex-col items-start transition-transform duration-150 ease-in-out
+            className={`fixed top-0 left-0 h-[100dvh] w-[var(--sidebar-width-open)] bg-white z-16 flex flex-col items-start transition-transform duration-150 ease-in-out
               ${isOverlayVisible ? 'translate-x-0' : '-translate-x-full'}`}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}

@@ -83,11 +83,14 @@ export default function SidebarMenuItem({
     <Button
       variant={buttonVariant}
       size={buttonSize}
-      className={`${itemBaseClasses} ${isSelected ? 'bg-gradient-to-r from-blue-100 to-transparent' : ''} ${isHovered ? 'bg-gray-100' : ''}`} // isSelectedとisHoveredでスタイルを直接適用
+      className={`${itemBaseClasses} ${isHovered ? 'bg-gray-100' : ''}`} // isSelectedのグラデーションクラスを削除
       onClick={handleClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
+      {isSelected && (
+        <div className="absolute inset-y-0 left-0 w-[60px] bg-gradient-to-r from-[#ACA9FF]/20 to-transparent" />
+      )}
       <div className={iconClasses}>
         {Icon()}
       </div>
