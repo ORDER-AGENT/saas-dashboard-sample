@@ -19,7 +19,7 @@ interface SidebarProps {
   isMenuOpen: boolean; // AppHeader に渡すためのプロップ
 }
 
-export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps) { // プロップスを整理
+export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps) {
   // ステート変数の定義
   const router = useRouter(); // Next.jsのルーターフック
   const { status } = useSession(); // NextAuth.jsのセッション情報を取得

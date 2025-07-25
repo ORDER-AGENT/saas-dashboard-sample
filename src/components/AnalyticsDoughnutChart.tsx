@@ -42,7 +42,7 @@ const data: DataItem[] = [
 const COLORS = ['#5BC4FF', '#FFDF6B', '#FF7D6B', '#E0E0E0'];
 
 const CustomActiveSector = (props: PieSectorDataItem) => {
-  const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, value, name } = props;
+  const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, /*payload,*/ value, name } = props;
 
   // 全体の合計値を計算（パーセンテージ表示用）
   const totalValue = data.reduce((sum, item) => sum + item.value, 0);

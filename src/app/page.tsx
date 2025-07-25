@@ -5,12 +5,12 @@ import ContentLayout from '@/components/ContentLayout';
 import SalesReportsChart from '@/components/SalesReportsChart';
 import AnalyticsDoughnutChart from '@/components/AnalyticsDoughnutChart';
 import Card from '@/components/Card';
-import StatisticsCard from '@/components/StatisticsCard'; // StatisticsCardをインポート
+import StatisticsCard from '@/components/StatisticsCard';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { IoHeart } from 'react-icons/io5'; // IoHeartをインポート
-import { HiBriefcase } from 'react-icons/hi'; // HiBriefcaseをインポート
-import { BsChatDotsFill } from 'react-icons/bs'; // BsChatDotsFillをインポート
-import { IoNotifications } from 'react-icons/io5'; // IoNotificationsをインポート
+import { IoHeart } from 'react-icons/io5';
+import { HiBriefcase } from 'react-icons/hi';
+import { BsChatDotsFill } from 'react-icons/bs';
+import { IoNotifications } from 'react-icons/io5';
 
 export default function Home() {
   return (
@@ -60,7 +60,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Recent Orders and Top Selling Products */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="lg:col-span-2">
             <Card

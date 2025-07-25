@@ -84,7 +84,7 @@ export default function SidebarMenuItem({
     <Button
       variant={buttonVariant}
       size={buttonSize}
-      className={`${itemBaseClasses} ${isHovered ? 'bg-gray-100' : ''}`} // isSelectedのグラデーションクラスを削除
+      className={`${itemBaseClasses} ${isHovered ? 'bg-gray-100' : ''}`}
       onClick={handleClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

@@ -3,8 +3,8 @@ import { RiDashboardHorizontalFill, RiSettings5Fill, RiCalendarScheduleFill } fr
 import { PiLockKeyOpenFill } from 'react-icons/pi';
 import { HiUsers } from 'react-icons/hi2';
 //import { GrSchedules } from 'react-icons/gr';
-import { IoNotifications } from 'react-icons/io5'; // IoNotificationsをインポート
-import { BsChatDotsFill } from 'react-icons/bs'; // BsChatDotsFillをインポート
+import { IoNotifications } from 'react-icons/io5';
+import { BsChatDotsFill } from 'react-icons/bs';
 
 export interface SidebarMenuItemType {
   key: string;
