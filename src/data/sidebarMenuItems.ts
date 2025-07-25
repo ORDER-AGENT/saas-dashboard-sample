@@ -13,6 +13,7 @@ export interface SidebarMenuItemType {
   path: string;
   isDynamic: boolean;
   roles?: string[];
+  displayInFooter?: boolean;
 }
 
 export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] => {
@@ -23,6 +24,7 @@ export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] 
       text: 'ダッシュボード',
       path: '/',
       isDynamic: false,
+      displayInFooter: true,
     },
     {
       key: 'Schedule',
@@ -30,6 +32,7 @@ export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] 
       text: 'スケジュール',
       path: '/Schedule',
       isDynamic: false,
+      displayInFooter: true,
     },
     {
       key: 'users',
@@ -37,6 +40,7 @@ export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] 
       text: 'ユーザー',
       path: '/users',
       isDynamic: false,
+      displayInFooter: true,
     },
     {
       key: 'secret',
@@ -44,7 +48,8 @@ export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] 
       text: 'シークレット',
       path: '/secret',
       isDynamic: false,
-      roles: ['admin']
+      roles: ['admin'],
+      displayInFooter: false,
     },
     {
       key: 'messages',
@@ -52,6 +57,7 @@ export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] 
       text: 'メッセージ',
       path: '/messages',
       isDynamic: false,
+      displayInFooter: true,
     },
     {
       key: 'notification',
@@ -59,6 +65,7 @@ export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] 
       text: '通知',
       path: '/notification',
       isDynamic: false,
+      displayInFooter: true,
     },
     {
       key: 'settings',
@@ -66,6 +73,7 @@ export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] 
       text: '設定',
       path: '/settings',
       isDynamic: false,
+      displayInFooter: false,
     },
   ];
 

@@ -15,9 +15,9 @@ import { IoNotifications } from 'react-icons/io5';
 export default function Home() {
   return (
     <ContentLayout>
-      <div className="p-4">
+      <div className="p-1 md:p-2 lg:p-4">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           <StatisticsCard
             icon={IoHeart}
             value="178+"

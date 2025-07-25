@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import { SessionProvider } from 'next-auth/react';
 import React, { useState, useEffect } from 'react';
 import useMediaQuery from '@/hooks/useMediaQuery'; 
+import FooterMenu from '@/components/FooterMenu';
 
 // ルートレイアウトのクライアントコンポーネント
 export default function RootLayoutClient({
@@ -18,7 +19,7 @@ export default function RootLayoutClient({
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
   const isSmallScreen = useMediaQuery('(max-width: 767px)');
-
+ 
   // isMenuOpen の初期状態を isLargeScreen に応じて設定（Hydration後）
   useEffect(() => {
     if (isLargeScreen !== null && isSmallScreen !== null) { // 両方の状態が確定してから設定
@@ -59,6 +60,10 @@ export default function RootLayoutClient({
             </main>
           </div>
         </div>
+        
+        {isSmallScreen && (
+          <FooterMenu />
+        )}
       </SessionProvider>
     </>
   );
