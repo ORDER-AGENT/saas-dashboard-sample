@@ -170,7 +170,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         </div>
 
         {/* ログイン/ログアウトボタンをサイドバー全体の最下部に追加 */}
-        <div className="w-full h-[var(--header-height)] bg-white flex items-center z-10 mt-auto">
+        <div className="w-full h-[60px] bg-white flex items-center z-10 mt-auto">
           {
             renderAuthMenuItem(isMenuOpen, 'desktop')
           }
@@ -208,7 +208,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
                 />
               </div>
               {/* ログイン/ログアウトボタンをサイドメニュー最下部に追加（小画面用） */}
-              <div className="w-full h-[var(--header-height)] flex-shrink-0 bg-white mt-auto flex items-center">
+              <div className="w-full h-[60px] flex-shrink-0 bg-white mt-auto flex items-center">
                 {
                   renderAuthMenuItem(true, 'mobile')
                 }

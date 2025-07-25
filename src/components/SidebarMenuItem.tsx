@@ -3,11 +3,12 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { IconType } from 'react-icons'; // IconType をインポート
+import { IconType } from 'react-icons';
+import Image from 'next/image';
 
 // SidebarMenuItemコンポーネントのPropsの型定義
 interface SidebarMenuItemProps {
-  icon: IconType; // IconTypeを直接使用
+  icon: IconType | string; // IconType または URL
   text: string; // メニュー項目テキスト
   isMenuOpen: boolean; // メニューが開いているか
   isSelected: boolean; // 選択されているか
@@ -42,13 +43,13 @@ export default function SidebarMenuItem({
   `;
 
   // Buttonコンポーネントに適用するバリアントとサイズ
-  const buttonVariant = isSelected ? 'ghost' : 'ghost'; // isSelectedに応じてスタイルを変更
+  const buttonVariant = isSelected ? 'ghost' : 'ghost';
   const buttonSize = 'lg';
 
   // アイコン部分のスタイル
   const iconClasses = `
-    flex-shrink-0 flex items-center justify-center
-    ${isMenuOpen ? 'w-[24px] mr-2' : 'mw-[24px] mr-0'}
+    flex-shrink-0 flex items-center justify-center size-6
+    ${isMenuOpen ? 'mr-2' : 'mr-0'}
   `;
 
   // テキスト部分のスタイル
@@ -93,7 +94,19 @@ export default function SidebarMenuItem({
         <div className="absolute inset-y-0 left-0 w-[60px] bg-gradient-to-r from-[#ACA9FF]/40 to-transparent" />
       )}
       <div className={iconClasses}>
-        <Icon className="size-6" />
+      {typeof Icon === 'string' ? (
+          <Image
+            src={Icon || '/default-link-icon.png'} // Iconを使用
+            alt={text}
+            width={0} // 幅を指定
+            height={0} // 高さを指定
+            sizes="100%"
+            className="w-full h-auto"
+            unoptimized={true}
+          />
+        ) : (
+          <Icon className="size-6" /> // IconTypeの場合はコンポーネントとしてレンダリング
+        )}
       </div>
       <span className={textClasses}>{text}</span>
       {/* ホバー時に表示する擬似要素 */}
