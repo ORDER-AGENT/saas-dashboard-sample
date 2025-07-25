@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { IconType } from 'react-icons';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // SidebarMenuItemコンポーネントのPropsの型定義
 interface SidebarMenuItemProps {
@@ -32,8 +31,7 @@ export default function SidebarMenuItem({
   path,
   isExternal,
 }: SidebarMenuItemProps) {
-  const router = useRouter(); // useRouterフックを使用
-
+  
   // メニュー項目全体のベーススタイル
   const itemBaseClasses = `
     flex items-center justify-start pl-5 relative overflow-hidden
@@ -42,9 +40,6 @@ export default function SidebarMenuItem({
     ${isMenuOpen ? 'h-[40px] w-full' : 'h-[40px] w-full'}
   `;
 
-  // Buttonコンポーネントに適用するバリアントとサイズ
-  const buttonVariant = isSelected ? 'ghost' : 'ghost';
-  const buttonSize = 'lg';
 
   // アイコン部分のスタイル
   const iconClasses = `
@@ -74,27 +69,32 @@ export default function SidebarMenuItem({
       window.open(path, '_blank');
       onClick(); // クリックハンドラも実行
     } else if (path) {
-      router.push(path); // 内部リンクの場合はルーターで遷移
       onClick(); // クリックハンドラも実行
     } else {
       onClick(); // パスがない場合はクリックハンドラのみ実行
     }
   };
 
-  return (
-    <Button
-      variant={buttonVariant}
-      size={buttonSize}
-      className={`${itemBaseClasses} ${isHovered ? 'bg-gray-100' : ''}`}
-      onClick={handleClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
+  const commonProps = {
+    className: `${itemBaseClasses} ${isHovered ? 'bg-gray-100' : ''}
+                  flex items-center justify-center p-0 rounded-md
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 // フォーカススタイル
+                  disabled:pointer-events-none disabled:opacity-50 // 無効化スタイル
+                  relative // ホバー擬似要素のためにrelativeを追加
+                  `,
+    onMouseEnter: onMouseEnter,
+    onMouseLeave: onMouseLeave,
+    onClick: handleClick,
+  };
+
+  // <a>と<Link>タグの子要素を共通化
+  const childrenContent = (
+    <>
       {isSelected && (
         <div className="absolute inset-y-0 left-0 w-[60px] bg-gradient-to-r from-[#ACA9FF]/40 to-transparent" />
       )}
       <div className={iconClasses}>
-      {typeof Icon === 'string' ? (
+        {typeof Icon === 'string' ? (
           <Image
             src={Icon || '/default-link-icon.png'} // Iconを使用
             alt={text}
@@ -111,6 +111,20 @@ export default function SidebarMenuItem({
       <span className={textClasses}>{text}</span>
       {/* ホバー時に表示する擬似要素 */}
       <div className={hoverClasses} />
-    </Button>
+    </>
+  );
+
+  return (
+    <>
+      {isExternal ? (
+        <a href={path} target="_blank" rel="noopener noreferrer" {...commonProps}>
+          {childrenContent}
+        </a>
+      ) : (
+        <Link href={path} {...commonProps}>
+          {childrenContent}
+        </Link>
+      )}
+    </>
   );
 }

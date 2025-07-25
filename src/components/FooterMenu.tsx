@@ -6,10 +6,10 @@ import { useSession } from 'next-auth/react';
 import { getSidebarMenuItems, SidebarMenuItemType } from '@/data/sidebarMenuItems';
 import Link from 'next/link';
 
-interface FooterMenuProps {
-}
+/*interface FooterMenuProps {
+}*/
 
-export default function FooterMenu({ }: FooterMenuProps) {
+export default function FooterMenu(/*{ }: FooterMenuProps*/) {
   const pathname = usePathname();
   const { status } = useSession();
 
