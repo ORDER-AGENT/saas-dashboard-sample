@@ -45,7 +45,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         icon={() => <TbLogout2 className="size-6" />}
         text="管理者ログアウト"
         isMenuOpen={menuOpenState}
-        isSelected={selectedItem === 'logout'}
+        isSelected={pathname === '/'}
         isHovered={hoveredItem === 'logout'}
         onMouseEnter={() => setHoveredItem('logout')}
         onMouseLeave={() => setHoveredItem(null)}
@@ -59,7 +59,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         icon={() => <TbLogin2 className="size-6" />}
         text="管理者"
         isMenuOpen={menuOpenState}
-        isSelected={selectedItem === 'admin'}
+        isSelected={pathname === '/admin'}
         isHovered={hoveredItem === 'admin'}
         onMouseEnter={() => setHoveredItem('admin')}
         onMouseLeave={() => setHoveredItem(null)}
@@ -99,8 +99,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
 
   }, [isMenuOpen, isLargeScreen]); // isMenuOpen と isLargeScreen に依存
 
-  // 選択中のアイテムキーとホバー中のアイテムキーを管理
-  const [selectedItem, setSelectedItem] = useState<string>('home');
+  // ホバー中のアイテムキーを管理
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   // 静的なメニュー項目データを定義
@@ -111,7 +110,6 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
 
   // メニュー項目クリックハンドラを共通化
   const handleMenuItemClick = (key: string) => {
-    setSelectedItem(key);
     if (key === 'admin') {
       // ログイン時に現在のパスをcallbackUrlとして渡す
       router.push(`/admin?callbackUrl=${encodeURIComponent(pathname)}`);
@@ -159,7 +157,6 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         <div className="absolute top-0 bottom-[var(--header-height)] left-0 w-full overflow-y-auto overflow-x-hidden flex flex-col items-start">
           <SidebarContent
             menuItems={menuItems}
-            selectedItem={selectedItem}
             hoveredItem={hoveredItem}
             onMouseEnter={setHoveredItem}
             onMouseLeave={setHoveredItem}
@@ -198,7 +195,6 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
               <div className="flex-grow overflow-y-auto w-full">
                 <SidebarContent
                   menuItems={menuItems}
-                  selectedItem={selectedItem}
                   hoveredItem={hoveredItem}
                   onMouseEnter={setHoveredItem}
                   onMouseLeave={setHoveredItem}

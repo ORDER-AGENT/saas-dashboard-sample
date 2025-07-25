@@ -4,10 +4,10 @@ import React from 'react';
 import SidebarMenuItem from './SidebarMenuItem';
 import { BeatLoader } from 'react-spinners';
 import { SidebarMenuItemType } from '@/data/sidebarMenuItems';
+import { usePathname } from 'next/navigation';
 
 interface SidebarContentProps {
   menuItems: SidebarMenuItemType[];
-  selectedItem: string;
   hoveredItem: string | null;
   onMouseEnter: (key: string) => void;
   onMouseLeave: (key: string | null) => void;
@@ -18,7 +18,6 @@ interface SidebarContentProps {
 
 export default function SidebarContent({
   menuItems,
-  selectedItem,
   hoveredItem,
   onMouseEnter,
   onMouseLeave,
@@ -26,6 +25,8 @@ export default function SidebarContent({
   isMenuOpenForContent,
   isDynamicLoading,
 }: SidebarContentProps) {
+  const pathname = usePathname();
+
   // 静的なメニュー項目と動的なメニュー項目を分離
   const staticMenuItems = menuItems.filter(item => !item.isDynamic);
   const dynamicMenuItems = menuItems.filter(item => item.isDynamic);
@@ -41,7 +42,7 @@ export default function SidebarContent({
             icon={item.icon}
             text={item.text}
             isMenuOpen={isMenuOpenForContent}
-            isSelected={selectedItem === item.key}
+            isSelected={pathname === item.path}
             isHovered={hoveredItem === item.key}
             onMouseEnter={() => onMouseEnter(item.key)}
             onMouseLeave={() => onMouseLeave(null)}
@@ -63,7 +64,7 @@ export default function SidebarContent({
               icon={item.icon}
               text={item.text}
               isMenuOpen={isMenuOpenForContent}
-              isSelected={selectedItem === item.key}
+              isSelected={pathname === item.path}
               isHovered={hoveredItem === item.key}
               onMouseEnter={() => onMouseEnter(item.key)}
               onMouseLeave={() => onMouseLeave(null)}
