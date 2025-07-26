@@ -63,7 +63,7 @@ export default function AppHeader({ onMenuToggleClick }: AppHeaderProps) {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-[var(--header-height)] z-2 flex items-center bg-white/30 select-none w-full backdrop-blur-xl">
+    <div className="fixed top-0 left-0 right-0 h-[var(--header-height)] z-2 flex items-center bg-white/80 select-none w-full backdrop-blur-xl">
       {/* 追加: ヘッダー左側にトグルボタンとロゴを配置 */}
       <div className="flex items-center flex-shrink-0 w-[250px]">
         <MenuToggleButton onClick={onMenuToggleClick} />
