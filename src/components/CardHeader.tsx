@@ -13,12 +13,16 @@ import { Button } from '@/components/ui/button';
 interface CardHeaderProps {
   title: string;
   dropdownItems?: React.ReactNode[];
+  leftAdornment?: React.ReactNode;
 }
 
-const CardHeader: React.FC<CardHeaderProps> = ({ title, dropdownItems }) => {
+const CardHeader: React.FC<CardHeaderProps> = ({ title, dropdownItems, leftAdornment }) => {
   return (
     <div className="flex justify-between items-center mb-4 relative">
-      <h3 className="text-xl font-semibold">{title}</h3>
+      <div className="flex items-center">
+        {leftAdornment && <span className="mr-2">{leftAdornment}</span>}
+        <h3 className="text-xl font-semibold">{title}</h3>
+      </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">

@@ -27,10 +27,10 @@ export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] 
       displayInFooter: true,
     },
     {
-      key: 'Schedule',
+      key: 'schedule',
       icon: RiCalendarScheduleFill,
       text: 'スケジュール',
-      path: '/Schedule',
+      path: '/schedule',
       isDynamic: false,
       displayInFooter: true,
     },
