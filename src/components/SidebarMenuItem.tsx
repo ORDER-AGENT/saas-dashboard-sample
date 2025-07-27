@@ -36,14 +36,14 @@ export default function SidebarMenuItem({
   const itemBaseClasses = `
     flex items-center justify-start pl-5 relative overflow-hidden
     transition-all duration-150 ease-in-out
-    ${isSelected ? 'text-blue-700' : 'text-gray-500/90 hover:text-gray-600'} // ホバー時のテキスト色を追加
+    ${isSelected ? 'text-[var(--accent)]' : 'text-gray-500/90 hover:text-gray-600'} // ホバー時のテキスト色を追加
     ${isMenuOpen ? 'h-[40px] w-full' : 'h-[40px] w-full'}
   `;
 
 
   // アイコン部分のスタイル
   const iconClasses = `
-    flex-shrink-0 flex items-center justify-center size-6
+    flex-shrink-0 flex items-center justify-center size-6 z-10
     ${isMenuOpen ? 'mr-2' : 'mr-0'}
   `;
 
@@ -51,16 +51,6 @@ export default function SidebarMenuItem({
   const textClasses = `
     text-base overflow-hidden transition-all duration-150 ease-in-out
     ${isMenuOpen ? 'w-auto opacity-100' : 'w-0 opacity-0 pointer-events-none'}
-  `;
-
-  // ホバー時の擬似要素のスタイル
-  const hoverClasses = `
-    absolute top-1/2 -translate-y-1/2 z-[-1] transition-all duration-150 ease-in-out
-    ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-    ${isMenuOpen
-      ? 'left-3 right-3 h-[32px] bg-gray-200 rounded-lg' // メニューが開いている場合
-      : 'left-1/2 -translate-x-1/2 w-[40px] h-[40px] bg-gray-200 rounded-full' // メニューが閉じている場合
-    }
   `;
 
   const handleClick = () => {
@@ -91,7 +81,7 @@ export default function SidebarMenuItem({
   const childrenContent = (
     <>
       {isSelected && (
-        <div className="absolute inset-y-0 left-0 w-[60px] bg-gradient-to-r from-[#ACA9FF]/40 to-transparent" />
+        <div className="absolute inset-y-0 left-0 w-[60px] bg-gradient-to-r from-[var(--accent-gradient)]/20 to-transparent" />
       )}
       <div className={iconClasses}>
         {typeof Icon === 'string' ? (
@@ -109,8 +99,7 @@ export default function SidebarMenuItem({
         )}
       </div>
       <span className={textClasses}>{text}</span>
-      {/* ホバー時に表示する擬似要素 */}
-      <div className={hoverClasses} />
+
     </>
   );
 
