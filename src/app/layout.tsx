@@ -4,8 +4,8 @@ import RootLayoutClient from '@/components/RootLayoutClient';
 
 // メタデータをエクスポート
 export const metadata = {
-  title: 'Next.js Sidemenu Sample',
-  description: 'Next.js のサイドメニューのサンプルアプリケーションです。',
+  title: 'SAAS Sample',
+  description: 'Next.js の SAAS サンプルアプリケーションです。',
 };
 
 // ルートレイアウトコンポーネント
