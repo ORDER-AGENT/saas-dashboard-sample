@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import RootLayoutClient from '@/components/RootLayoutClient';
+import { Analytics } from "@vercel/analytics/next"
 
 // メタデータをエクスポート
 export const metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body>
         <RootLayoutClient>
           {children}
+          <Analytics />
         </RootLayoutClient>
       </body>
     </html>
