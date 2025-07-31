@@ -1,8 +1,8 @@
 'use client';
 
 import React, { ReactNode, useState } from 'react';
-import CardHeader from '@/components/CardHeader';
-import CardBase from '@/components/CardBase';
+import CardHeader from '@/components/card/CardHeader';
+import CardBase from '@/components/card/CardBase';
 import { FaRegCircle, FaCircleCheck, /*FaHourglassHalf*/ } from 'react-icons/fa6';
 import {
   DropdownMenu,

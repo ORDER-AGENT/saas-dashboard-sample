@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import CardHeader from '@/components/CardHeader';
-import CardBase from '@/components/CardBase';
+import CardHeader from '@/components/card/CardHeader';
+import CardBase from '@/components/card/CardBase';
 
 interface CardProps {
   title?: string;
@@ -9,7 +9,7 @@ interface CardProps {
   leftAdornment?: ReactNode;
 }
 
-const Card: React.FC<CardProps> = ({ title, children, dropdownItems, leftAdornment }) => {
+const SimpleCard: React.FC<CardProps> = ({ title, children, dropdownItems, leftAdornment }) => {
   return (
     <CardBase>
       {title && <CardHeader title={title} dropdownItems={dropdownItems} leftAdornment={leftAdornment} />}
@@ -18,4 +18,4 @@ const Card: React.FC<CardProps> = ({ title, children, dropdownItems, leftAdornme
   );
 };
 
-export default Card;
+export default SimpleCard;

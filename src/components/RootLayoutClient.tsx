@@ -1,12 +1,12 @@
 'use client';
 
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/components/menu/Sidebar';
 import AppHeader from '@/components/AppHeader';
 import { Toaster } from 'react-hot-toast';
 import { SessionProvider } from 'next-auth/react';
 import React, { useState, useEffect } from 'react';
 import useMediaQuery from '@/hooks/useMediaQuery'; 
-import FooterMenu from '@/components/FooterMenu';
+import FooterMenu from '@/components/menu/FooterMenu';
 import { ConvexProvider, ConvexReactClient } from 'convex/react';
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL as string);

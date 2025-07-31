@@ -3,7 +3,7 @@
 //import React, { useState, useEffect } from 'react';
 import { AreaChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area } from 'recharts';
 import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
-import Card from '@/components/Card';
+import SimpleCard from '@/components/card/SimpleCard';
 import { DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 
 
@@ -73,7 +73,7 @@ const SalesReportsChart/*: React.FC<SalesReportsChartProps>*/ = () => {
   ];
 
   return (
-    <Card title="レポート" dropdownItems={dropdownItems}>
+    <SimpleCard title="レポート" dropdownItems={dropdownItems}>
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart
           data={salesData}
@@ -116,7 +116,7 @@ const SalesReportsChart/*: React.FC<SalesReportsChartProps>*/ = () => {
           />
         </AreaChart>
       </ResponsiveContainer>
-    </Card>
+    </SimpleCard>
   );
 };
 

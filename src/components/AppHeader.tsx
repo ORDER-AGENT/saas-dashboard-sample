@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import MenuToggleButton from './MenuToggleButton';
+import MenuToggleButton from './menu/MenuToggleButton';
 import Image from 'next/image';
 //import { useSession } from 'next-auth/react';
 import Link from 'next/link';

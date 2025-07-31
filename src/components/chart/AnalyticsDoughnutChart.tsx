@@ -2,7 +2,7 @@
 
 //import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Sector, Text, SectorProps } from 'recharts';
-import Card from '@/components/Card';
+import SimpleCard from '@/components/card/SimpleCard';
 import { DropdownMenuItem/*, DropdownMenuSeparator*/ } from '@/components/ui/dropdown-menu';
 
 type Coordinate = {
@@ -94,7 +94,7 @@ const AnalyticsDoughnutChart/*: React.FC<AnalyticsDoughnutChartProps>*/ = () => 
   ];
 
   return (
-    <Card title="アナリティクス" dropdownItems={dropdownItems}> {/* タイトルを内部で定義 */}
+    <SimpleCard title="アナリティクス" dropdownItems={dropdownItems}> {/* タイトルを内部で定義 */}
       {/* 全体の高さを300pxにし、flexboxで子要素を縦方向に配置 */}
       <div className="h-[300px] flex flex-col">
         {/* チャート部分が残りのスペースを占めるようにflex-growを適用 */}
@@ -137,7 +137,7 @@ const AnalyticsDoughnutChart/*: React.FC<AnalyticsDoughnutChartProps>*/ = () => 
           ))}
         </div>
       </div>
-    </Card>
+    </SimpleCard>
   );
 };
 

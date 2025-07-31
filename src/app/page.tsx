@@ -2,10 +2,10 @@
 
 import React from 'react';
 import ContentLayout from '@/components/ContentLayout';
-import SalesReportsChart from '@/components/SalesReportsChart';
-import AnalyticsDoughnutChart from '@/components/AnalyticsDoughnutChart';
-import Card from '@/components/Card';
-import StatisticsCard from '@/components/StatisticsCard';
+import SalesReportsChart from '@/components/chart/SalesReportsChart';
+import AnalyticsDoughnutChart from '@/components/chart/AnalyticsDoughnutChart';
+import SimpleCard from '@/components/card/SimpleCard';
+import StatisticsCard from '@/components/card/StatisticsCard';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { IoHeart } from 'react-icons/io5';
 import { HiBriefcase } from 'react-icons/hi';
@@ -62,7 +62,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="lg:col-span-2">
-            <Card
+            <SimpleCard
               title="最近の注文"
               dropdownItems={[
                 <DropdownMenuItem key="orders-1">注文オプションX</DropdownMenuItem>,
@@ -70,14 +70,14 @@ export default function Home() {
               ]}
             >
               <div className="h-48 flex items-center justify-center border border-dashed rounded mt-4">注文リスト</div>
-            </Card>
+            </SimpleCard>
           </div>
           <div>
-            <Card
+            <SimpleCard
               title="売れ筋商品"
             >
               <div className="h-48 flex items-center justify-center border border-dashed rounded mt-4">商品リスト</div>
-            </Card>
+            </SimpleCard>
           </div>
         </div>
       </div>

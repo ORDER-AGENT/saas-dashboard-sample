@@ -4,8 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FaList, FaTableCellsLarge, /*FaCalendarDay,*/ FaRegCircle, FaCircleCheck, FaHourglassHalf } from 'react-icons/fa6';
 import { RiTimelineView } from 'react-icons/ri';
 import ContentLayout from '@/components/ContentLayout';
-import Card from '@/components/Card';
-import TaskCard from '@/components/TaskCard';
+import SimpleCard from '@/components/card/SimpleCard';
+import TaskCard from '@/components/card/TaskCard';
 
 export default function SchedulePage() {
   return (
