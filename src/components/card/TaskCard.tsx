@@ -35,13 +35,13 @@ const TaskCard: React.FC<TaskCardProps> = ({
   const getStatusIcon = (status: TaskStatus) => {
     switch (status) {
       case 'todo':
-        return <FaRegCircle className="size-5 text-gray-400" />;
+        return <FaRegCircle className="size-5 text-ring" />;
       case 'in-progress':
-        return <FaCircleCheck className="size-5 text-[var(--theme)]" />; // --theme を使用
+        return <FaCircleCheck className="size-5 text-primary" />;
       case 'in-review':
         return <FaCircleCheck className="size-5 text-green-500" />; // FaHourglassHalf と緑色を維持
       case 'done':
-        return <FaCircleCheck className="size-5 text-gray-400" />;
+        return <FaCircleCheck className="size-5 text-ring" />;
       default:
         return null;
     }
@@ -61,16 +61,16 @@ const TaskCard: React.FC<TaskCardProps> = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start">
         <DropdownMenuItem onClick={() => handleStatusChange('todo')}>
-          <FaRegCircle className="size-4 mr-2 text-gray-400" /> 未着手
+          <FaRegCircle className="size-4 mr-2 text-ring" /> 未着手
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleStatusChange('in-progress')}>
-          <FaCircleCheck className="size-4 mr-2 text-[var(--theme)]" /> 進行中
+          <FaCircleCheck className="size-4 mr-2 text-primary" /> 進行中
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleStatusChange('in-review')}>
           <FaCircleCheck className="size-4 mr-2 text-green-500" /> 確認待ち
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleStatusChange('done')}>
-          <FaCircleCheck className="size-4 mr-2 text-gray-400" /> 完了
+          <FaCircleCheck className="size-4 mr-2 text-ring" /> 完了
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

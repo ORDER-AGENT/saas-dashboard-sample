@@ -90,7 +90,7 @@ export default function UsersPage() {
             />
             <IoIosSearch className="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" /> {/* SVGをIoIosSearchに置き換え */}
           </div>
-          <Button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+          <Button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90">
             + Add New
           </Button>
         </div>

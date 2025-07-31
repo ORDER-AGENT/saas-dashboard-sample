@@ -6,13 +6,14 @@ import { User } from '@/types/users';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { FaStar, FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 
 export const columns: ColumnDef<User>[] = [
   {
     id: 'select',
     header: ({ table }) => (
       <Checkbox
-        className="data-[state=checked]:bg-[var(--theme)] data-[state=checked]:border-[var(--theme)] cursor-pointer"
+        className="hover:border-accent-foreground data-[state=checked]:bg-primary data-[state=checked]:border-primary cursor-pointer"
         checked={
           table.getIsAllPageRowsSelected()
             ? true
@@ -25,7 +26,7 @@ export const columns: ColumnDef<User>[] = [
     ),
     cell: ({ row }) => (
       <Checkbox
-        className="data-[state=checked]:bg-[var(--theme)] data-[state=checked]:border-[var(--theme)] cursor-pointer"
+        className="hover:border-accent-foreground data-[state=checked]:bg-primary data-[state=checked]:border-primary cursor-pointer"
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
       />
@@ -169,12 +170,12 @@ export const columns: ColumnDef<User>[] = [
       <div className="flex items-center space-x-2 justify-end">
         <FaStar
           className={`w-5 h-5 ${
-            row.original.starred ? 'text-yellow-500' : 'text-gray-300'
+            row.original.starred ? 'text-yellow-500' : 'text-input'
           } cursor-pointer`}
         />
-        <HiOutlineDotsHorizontal
-          className="w-5 h-5 text-gray-500 cursor-pointer"
-        />
+        <Button variant="ghost" size="icon" className="text-secondary">
+          <HiOutlineDotsHorizontal className="w-5 h-5" />
+        </Button>        
       </div>
     ),
     enableSorting: false,

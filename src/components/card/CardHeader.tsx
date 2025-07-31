@@ -25,9 +25,9 @@ const CardHeader: React.FC<CardHeaderProps> = ({ title, dropdownItems, leftAdorn
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-                <HiOutlineDotsHorizontal className="w-5 h-5" />
-            </Button>
+          <Button variant="ghost" size="icon" className="text-secondary">
+            <HiOutlineDotsHorizontal className="w-5 h-5" />
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="center"> {/* ドロップダウンのコンテンツ */}
           {dropdownItems && dropdownItems.length > 0 ? (
