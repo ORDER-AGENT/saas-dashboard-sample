@@ -7,6 +7,9 @@ import { SessionProvider } from 'next-auth/react';
 import React, { useState, useEffect } from 'react';
 import useMediaQuery from '@/hooks/useMediaQuery'; 
 import FooterMenu from '@/components/FooterMenu';
+import { ConvexProvider, ConvexReactClient } from 'convex/react';
+
+const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL as string);
 
 // ルートレイアウトのクライアントコンポーネント
 export default function RootLayoutClient({
@@ -36,34 +39,36 @@ export default function RootLayoutClient({
     <>
       {/* NextAuth.jsのセッションプロバイダ */}
       <SessionProvider>
-        <div className="flex flex-col h-[100dvh]">
-          {/* ヘッダー部分をコンポーネントとしてレンダリング */}
-          <AppHeader
-            onMenuToggleClick={handleMenuToggleClick}
-          />
-
-          <div className={`flex flex-grow pt-[var(--header-height)] ${isSmallScreen ? 'pb-[var(--footer-menu-height)]' : ''}`}>
-            {/* サイドバーコンポーネント */}
-            <Sidebar
-              isMenuOpen={isMenuOpen}
+        <ConvexProvider client={convex}>
+          <div className="flex flex-col h-[100dvh]">
+            {/* ヘッダー部分をコンポーネントとしてレンダリング */}
+            <AppHeader
               onMenuToggleClick={handleMenuToggleClick}
             />
-            {/* メインコンテンツ領域 */}
-            <main
-              className={`flex-grow overflow-auto transition-[margin-left] duration-150 ease-in-out ${
-                isMenuOpen ? 'lg:ml-[var(--sidebar-width-open)] md:ml-[var(--sidebar-width-closed)]' : 'lg:ml-[var(--sidebar-width-closed)] md:ml-[var(--sidebar-width-closed)]'
-              }`}
-            >
-              {children}
-              {/* トースト通知表示エリア */}
-              <Toaster />
-            </main>
+
+            <div className={`flex flex-grow pt-[var(--header-height)] ${isSmallScreen ? 'pb-[var(--footer-menu-height)]' : ''}`}>
+              {/* サイドバーコンポーネント */}
+              <Sidebar
+                isMenuOpen={isMenuOpen}
+                onMenuToggleClick={handleMenuToggleClick}
+              />
+              {/* メインコンテンツ領域 */}
+              <main
+                className={`flex-grow overflow-auto transition-[margin-left] duration-150 ease-in-out ${
+                  isMenuOpen ? 'lg:ml-[var(--sidebar-width-open)] md:ml-[var(--sidebar-width-closed)]' : 'lg:ml-[var(--sidebar-width-closed)] md:ml-[var(--sidebar-width-closed)]'
+                }`}
+              >
+                {children}
+                {/* トースト通知表示エリア */}
+                <Toaster />
+              </main>
+            </div>
           </div>
-        </div>
-        
-        {isSmallScreen && (
-          <FooterMenu />
-        )}
+          
+          {isSmallScreen && (
+            <FooterMenu />
+          )}
+        </ConvexProvider>
       </SessionProvider>
     </>
   );
