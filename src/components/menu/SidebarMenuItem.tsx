@@ -49,7 +49,7 @@ export default function SidebarMenuItem({
 
   // テキスト部分のスタイル
   const textClasses = `
-    text-base overflow-hidden transition-all duration-150 ease-in-out
+    text-base overflow-hidden transition-all duration-150 ease-in-out whitespace-nowrap
     ${isMenuOpen ? 'w-auto opacity-100' : 'w-0 opacity-0 pointer-events-none'}
   `;
 
