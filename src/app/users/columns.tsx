@@ -5,8 +5,15 @@ import { ColumnDef } from '@tanstack/react-table';
 import { User } from '@/types/users';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { FaStar, FaAngleUp, FaAngleDown } from 'react-icons/fa';
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -173,9 +180,23 @@ export const columns: ColumnDef<User>[] = [
             row.original.starred ? 'text-yellow-500' : 'text-input'
           } cursor-pointer`}
         />
-        <Button variant="ghost" size="icon" className="text-secondary">
-          <HiOutlineDotsHorizontal className="w-5 h-5" />
-        </Button>        
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="text-secondary">
+              <HiOutlineDotsHorizontal className="w-5 h-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-40" align="end">
+            <DropdownMenuItem>
+              <FiEdit className="h-4 w-4 mr-2" />
+              編集
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500">
+              <FiTrash2 className="h-4 w-4 mr-2" />
+              削除
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     ),
     enableSorting: false,
