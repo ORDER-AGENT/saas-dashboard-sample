@@ -25,7 +25,7 @@ const handler = NextAuth({
           // 認証成功: ユーザーオブジェクトを返す
           // ここで返されるオブジェクトはセッションに保存されます。
           // 実際のアプリケーションでは、データベースからユーザー情報を取得します。
-          return { id: "admin", name: "管理者", email: "admin@example.com" };
+          return { id: 'admin', name: '管理者', email: 'admin@example.com', roles: ['admin'] };
         } else {
           // 認証失敗時にエラーをスロー
           throw new Error('パスワードが間違っています。');
@@ -54,6 +54,11 @@ const handler = NextAuth({
         token.id = user.id as string;
         token.name = user.name as string;
         token.email = user.email as string;
+        // @ts-ignore
+        if (user.roles) {
+          // @ts-ignore
+          token.roles = user.roles;
+        }
       }
       return token;
     },
@@ -64,6 +69,8 @@ const handler = NextAuth({
         session.user.id = token.id as string;
         session.user.name = token.name as string;
         session.user.email = token.email as string;
+        // @ts-ignore
+        session.user.roles = token.roles;
       }
       return session;
     },

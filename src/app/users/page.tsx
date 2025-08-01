@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import ContentLayout from '@/components/ContentLayout';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { IoIosSearch } from 'react-icons/io'; // IoIosSearch をインポート
+import { IoIosSearch } from 'react-icons/io';
 import {
   Table,
   TableBody,
@@ -23,26 +23,24 @@ import {
   SortingState,
 } from '@tanstack/react-table';
 import { columns as userColumns } from './columns';
-import { useUsers } from '@/hooks/useUsers'; // useUsers フックをインポート
+import { useUsers } from '@/hooks/useUsers';
 import SimpleSpinner from '@/components/loader/SimpleSpinner';
-import { cn } from '@/lib/utils'; // cn をインポート
+import { cn } from '@/lib/utils';
+import withAuthorization from '@/components/auth/withAuthorization';
+import { User } from '@/types/users';
 
-export default function UsersPage() {
+function UsersPage() {
   const { status } = useSession();
   const router = useRouter();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  
-  // カスタムフックからユーザーデータとローディング状態、エラーを取得
-  const { users: convexUsers, isLoading: isLoadingUsers, error } = useUsers();
 
-  useEffect(() => {
-    if (status === 'loading') return;
-
-    if (status === 'unauthenticated') {
-      router.push('/admin');
-    }
-  }, [status, router]);
+  // HOCで認証が保証されている
+  const {
+    users: convexUsers,
+    isLoading: isLoadingUsers,
+    error,
+  } = useUsers();
 
   const columns = React.useMemo(() => userColumns, []);
 
@@ -52,15 +50,17 @@ export default function UsersPage() {
     if (!searchTerm) return convexUsers;
 
     const lowercasedSearchTerm = searchTerm.toLowerCase();
-    return convexUsers.filter(user =>
-      user.name.toLowerCase().includes(lowercasedSearchTerm) ||
-      user.email.toLowerCase().includes(lowercasedSearchTerm) ||
-      user.id.toLowerCase().includes(lowercasedSearchTerm)
+    // userパラメータの型を(typeof convexUsers)[number]とすることで、配列の要素の型を推論させます
+    return convexUsers.filter(
+      (user: (typeof convexUsers)[number]) =>
+        user.name.toLowerCase().includes(lowercasedSearchTerm) ||
+        user.email.toLowerCase().includes(lowercasedSearchTerm) ||
+        user.id.toLowerCase().includes(lowercasedSearchTerm)
     );
   }, [convexUsers, searchTerm]);
 
-  const table = useReactTable({
-    data: filteredUsers, // フィルタリングされたデータを使用
+  const table = useReactTable<User>({
+    data: filteredUsers as User[], // フィルタリングされたデータを使用
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -69,10 +69,6 @@ export default function UsersPage() {
       sorting,
     },
   });
-
-  if (status === 'loading' || status === 'unauthenticated') {
-    return null; // データがロードされるまで何も表示しない
-  }
 
   return (
     <ContentLayout>
@@ -123,8 +119,8 @@ export default function UsersPage() {
               </TableRow>
             ) : isLoadingUsers ? (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24"> {/* ここから flex/items-center/justify-center を削除 */}
-                  <div className="w-full h-full flex items-center justify-center"> {/* 新しい div を追加し、これにセンタリングのスタイルを適用 */}
+                <TableCell colSpan={columns.length} className="h-24">
+                  <div className="w-full h-full flex items-center justify-center">
                     <SimpleSpinner />
                   </div>
                 </TableCell>
@@ -168,3 +164,5 @@ export default function UsersPage() {
     </ContentLayout>
   );
 }
+
+export default withAuthorization(UsersPage);

@@ -16,67 +16,67 @@ export interface SidebarMenuItemType {
   displayInFooter?: boolean;
 }
 
-export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] => {
-  const allMenuItems: SidebarMenuItemType[] = [
-    {
-      key: 'dashboard',
-      icon: RiDashboardHorizontalFill,
-      text: 'ダッシュボード',
-      path: '/',
-      isDynamic: false,
-      displayInFooter: true,
-    },
-    {
-      key: 'schedule',
-      icon: RiCalendarScheduleFill,
-      text: 'スケジュール',
-      path: '/schedule',
-      isDynamic: false,
-      displayInFooter: true,
-    },
-    {
-      key: 'users',
-      icon: HiUsers,
-      text: 'ユーザー',
-      path: '/users',
-      isDynamic: false,
-      displayInFooter: true,
-    },
-    {
-      key: 'secret',
-      icon: PiLockKeyOpenFill,
-      text: 'シークレット',
-      path: '/secret',
-      isDynamic: false,
-      roles: ['admin'],
-      displayInFooter: false,
-    },
-    {
-      key: 'messages',
-      icon: BsChatDotsFill,
-      text: 'メッセージ',
-      path: '/messages',
-      isDynamic: false,
-      displayInFooter: true,
-    },
-    {
-      key: 'notification',
-      icon: IoNotifications,
-      text: '通知',
-      path: '/notification',
-      isDynamic: false,
-      displayInFooter: true,
-    },
-    {
-      key: 'settings',
-      icon: RiSettings5Fill,
-      text: '設定',
-      path: '/settings',
-      isDynamic: false,
-      displayInFooter: false,
-    },
-  ];
+export const allMenuItems: SidebarMenuItemType[] = [
+  {
+    key: 'dashboard',
+    icon: RiDashboardHorizontalFill,
+    text: 'ダッシュボード',
+    path: '/',
+    isDynamic: false,
+    displayInFooter: true,
+  },
+  {
+    key: 'schedule',
+    icon: RiCalendarScheduleFill,
+    text: 'スケジュール',
+    path: '/schedule',
+    isDynamic: false,
+    displayInFooter: true,
+  },
+  {
+    key: 'users',
+    icon: HiUsers,
+    text: 'ユーザー',
+    path: '/users',
+    isDynamic: false,
+    displayInFooter: true,
+  },
+  {
+    key: 'secret',
+    icon: PiLockKeyOpenFill,
+    text: 'シークレット',
+    path: '/secret',
+    isDynamic: false,
+    roles: ['admin'],
+    displayInFooter: false,
+  },
+  {
+    key: 'messages',
+    icon: BsChatDotsFill,
+    text: 'メッセージ',
+    path: '/messages',
+    isDynamic: false,
+    displayInFooter: true,
+  },
+  {
+    key: 'notification',
+    icon: IoNotifications,
+    text: '通知',
+    path: '/notification',
+    isDynamic: false,
+    displayInFooter: true,
+  },
+  {
+    key: 'settings',
+    icon: RiSettings5Fill,
+    text: '設定',
+    path: '/settings',
+    isDynamic: false,
+    displayInFooter: false,
+  },
+];
 
+export const getSidebarMenuItems = (userRoles: string[]): SidebarMenuItemType[] => {
   // ユーザーのロールに基づいてメニュー項目をフィルタリング
   return allMenuItems.filter(item => {
     // ロールが設定されていない、または空配列の場合は常に表示
