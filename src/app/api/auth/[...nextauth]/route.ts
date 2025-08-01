@@ -54,9 +54,7 @@ const handler = NextAuth({
         token.id = user.id as string;
         token.name = user.name as string;
         token.email = user.email as string;
-        // @ts-ignore
         if (user.roles) {
-          // @ts-ignore
           token.roles = user.roles;
         }
       }
@@ -69,7 +67,6 @@ const handler = NextAuth({
         session.user.id = token.id as string;
         session.user.name = token.name as string;
         session.user.email = token.email as string;
-        // @ts-ignore
         session.user.roles = token.roles;
       }
       return session;

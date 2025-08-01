@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import ContentLayout from '@/components/ContentLayout';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -30,8 +28,6 @@ import withAuthorization from '@/components/auth/withAuthorization';
 import { User } from '@/types/users';
 
 function UsersPage() {
-  const { status } = useSession();
-  const router = useRouter();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
