@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { IoIosSearch } from 'react-icons/io';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { FiSend, FiPaperclip, FiSmile, FiEdit, FiTrash2 } from 'react-icons/fi';
+import Image from 'next/image';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -98,9 +99,11 @@ export default function MessagesPage() {
                     { 'bg-gray-100': message.active }
                   )}
                 >
-                  <img
+                  <Image
                     src={message.avatar}
                     alt={message.name}
+                    width={40}
+                    height={40}
                     className="w-10 h-10 rounded-full mr-3"
                   />
                   <div className="flex-1">
@@ -129,7 +132,13 @@ export default function MessagesPage() {
           {/* ヘッダー */}
           <div className="flex justify-between items-center pb-4 border-b border-gray-200">
             <div className="flex items-center">
-              <img src="https://github.com/shadcn.png" alt="John Carlio" className="w-10 h-10 rounded-full mr-3" />
+              <Image
+                src="https://github.com/shadcn.png"
+                alt="John Carlio"
+                width={40}
+                height={40}
+                className="w-10 h-10 rounded-full mr-3"
+              />
               <div>
                 <h3 className="font-semibold">John Carlio</h3>
                 <p className="text-sm text-green-500">Online</p>
@@ -157,16 +166,31 @@ export default function MessagesPage() {
           <div className="flex-1 overflow-y-auto py-4">
             {/* 相手のメッセージ */}
             <div className="flex items-start mb-4">
-              <img src="https://github.com/shadcn.png" alt="John Carlio" className="w-8 h-8 rounded-full mr-3" />
+              <Image
+                src="https://github.com/shadcn.png"
+                alt="John Carlio"
+                width={32}
+                height={32}
+                className="w-8 h-8 rounded-full mr-3"
+              />
               <div className="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
                 <p>Lorem Ipsum is simply</p>
                 <p className="text-xs text-right mt-1">09:02 PM</p>
               </div>
             </div>
             <div className="flex items-start mb-4">
-              <img src="https://github.com/shadcn.png" alt="John Carlio" className="w-8 h-8 rounded-full mr-3" />
+              <Image
+                src="https://github.com/shadcn.png"
+                alt="John Carlio"
+                width={32}
+                height={32}
+                className="w-8 h-8 rounded-full mr-3"
+              />
               <div className="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry.
+                </p>
                 <p className="text-xs text-right mt-1">09:02 PM</p>
               </div>
             </div>
@@ -197,7 +221,13 @@ export default function MessagesPage() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <img src="https://github.com/evilrabbit.png" alt="You" className="w-8 h-8 rounded-full ml-3" />
+              <Image
+                src="https://github.com/evilrabbit.png"
+                alt="You"
+                width={32}
+                height={32}
+                className="w-8 h-8 rounded-full ml-3"
+              />
             </div>
 
           </div>
