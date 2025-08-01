@@ -12,10 +12,11 @@ import TaskBoard from './TaskBoard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { IoIosSearch } from 'react-icons/io';
+import { Task } from '@/types/tasks';
 
 export default function SchedulePage() {
   const {
-    tasks: scheduleTasks,
+    //tasks: scheduleTasks,
     groupedTasks,
     isLoading: isLoadingTasks,
   } = useTasks();
@@ -26,7 +27,7 @@ export default function SchedulePage() {
     if (!searchTerm) return groupedTasks;
 
     const lowercasedSearchTerm = searchTerm.toLowerCase();
-    const filtered: { [key: string]: any[] } = {};
+    const filtered: { [key: string]: Task[] } = {};
 
     for (const status in groupedTasks) {
       if (Object.prototype.hasOwnProperty.call(groupedTasks, status)) {

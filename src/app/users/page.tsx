@@ -15,7 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { User } from '@/types/users';
 import {
   flexRender,
   getCoreRowModel,

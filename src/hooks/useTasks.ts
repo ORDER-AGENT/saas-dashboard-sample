@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { api } from '@/convex/_generated/api';
 import { useQuery } from 'convex/react';
-import { Task, TaskStatus } from '@/types/tasks';
+import { TaskStatus } from '@/types/tasks';
 
 export const useTasks = () => {
   // convex/tasks.ts の get クエリを使用してタスクデータを取得します。
