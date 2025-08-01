@@ -3,7 +3,8 @@
 import React, { ReactNode, useState } from 'react';
 import CardHeader from '@/components/card/CardHeader';
 import CardBase from '@/components/card/CardBase';
-import { FaRegCircle, FaCircleCheck, /*FaHourglassHalf*/ } from 'react-icons/fa6';
+import { FaRegCircle, FaCircleCheck } from 'react-icons/fa6';
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,65 +13,85 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-
-type TaskStatus = 'todo' | 'in-progress' | 'in-review' | 'done';
+import { Task, TaskStatus } from '@/types/tasks';
 
 interface TaskCardProps {
-  title?: string;
+  title: string;
   children: ReactNode;
-  dropdownItems?: ReactNode[];
-  initialStatus: TaskStatus;
+  //dropdownItems?: ReactNode[];
   onStatusChange?: (newStatus: TaskStatus) => void;
+  initialStatus: Task['initialStatus'];
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
   title,
   children,
-  dropdownItems,
   initialStatus,
   onStatusChange,
 }) => {
-  const [currentStatus, setCurrentStatus] = useState<TaskStatus>(initialStatus);
+  const [status, setStatus] = useState<TaskStatus>(initialStatus as TaskStatus);
 
-  const getStatusIcon = (status: TaskStatus) => {
-    switch (status) {
-      case 'todo':
-        return <FaRegCircle className="size-5 text-ring" />;
-      case 'in-progress':
-        return <FaCircleCheck className="size-5 text-primary" />;
-      case 'in-review':
-        return <FaCircleCheck className="size-5 text-green-500" />; // FaHourglassHalf と緑色を維持
-      case 'done':
-        return <FaCircleCheck className="size-5 text-ring" />;
-      default:
-        return null;
-    }
+  const statusIcons: Record<TaskStatus, React.ReactElement> = {
+    [TaskStatus.Todo]: <FaRegCircle className="size-5 text-ring" />,
+    [TaskStatus.InProgress]: <FaCircleCheck className="size-5 text-primary" />,
+    [TaskStatus.InReview]: <FaCircleCheck className="size-5 text-green-500" />,
+    [TaskStatus.Done]: <FaCircleCheck className="size-5 text-ring" />,
   };
 
+  const statusTexts: Record<TaskStatus, string> = {
+    [TaskStatus.Todo]: '未着手',
+    [TaskStatus.InProgress]: '進行中',
+    [TaskStatus.InReview]: 'レビュー中',
+    [TaskStatus.Done]: '完了',
+  };
+
+  // Define dropdownItems before it's used
+  const dropdownItems = [
+    <DropdownMenuItem key="edit">
+      <FiEdit className="h-4 w-4 mr-2" />
+      編集
+    </DropdownMenuItem>,
+    <DropdownMenuItem key="delete" className="text-red-500">
+      <FiTrash2 className="h-4 w-4 mr-2" />
+      削除
+    </DropdownMenuItem>,
+  ];
+
   const handleStatusChange = (newStatus: TaskStatus) => {
-    setCurrentStatus(newStatus);
-    onStatusChange?.(newStatus);
+    setStatus(newStatus);
+    if (onStatusChange) {
+      onStatusChange(newStatus);
+    }
   };
 
   const statusDropdown = (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="mr-2">
-          {getStatusIcon(currentStatus)}
+        <Button variant="ghost" size="icon" className="h-6 w-6">
+          {statusIcons[status]}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align="start">
-        <DropdownMenuItem onClick={() => handleStatusChange('todo')}>
-          <FaRegCircle className="size-4 mr-2 text-ring" /> 未着手
+      <DropdownMenuContent>
+        {/* Pass the actual status values to onSelect */}
+        <DropdownMenuItem onSelect={() => handleStatusChange(TaskStatus.Todo)}>
+          {statusIcons.todo}
+          {statusTexts.todo}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleStatusChange('in-progress')}>
-          <FaCircleCheck className="size-4 mr-2 text-primary" /> 進行中
+        <DropdownMenuItem
+          onSelect={() => handleStatusChange(TaskStatus.InProgress)}
+        >
+          {statusIcons.inProgress}
+          {statusTexts.inProgress}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleStatusChange('in-review')}>
-          <FaCircleCheck className="size-4 mr-2 text-green-500" /> 確認待ち
+        <DropdownMenuItem
+          onSelect={() => handleStatusChange(TaskStatus.InReview)}
+        >
+          {statusIcons.inReview}
+          {statusTexts.inReview}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleStatusChange('done')}>
-          <FaCircleCheck className="size-4 mr-2 text-ring" /> 完了
+        <DropdownMenuItem onSelect={() => handleStatusChange(TaskStatus.Done)}>
+          {statusIcons.done}
+          {statusTexts.done}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -78,16 +99,10 @@ const TaskCard: React.FC<TaskCardProps> = ({
 
   return (
     <CardBase>
-      {title && (
-        <CardHeader
-          title={title}
-          dropdownItems={dropdownItems}
-          leftAdornment={statusDropdown}
-        />
-      )}
+      <CardHeader title={title} leftAdornment={statusDropdown} dropdownItems={dropdownItems} />
       {children}
     </CardBase>
   );
 };
 
-export default TaskCard; 
+export default TaskCard;
