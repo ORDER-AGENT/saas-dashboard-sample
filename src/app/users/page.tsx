@@ -100,7 +100,7 @@ export default function UsersPage() {
         <Table className="mb-2 border-separate border-spacing-y-1">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="bg-gray-100 rounded-md shadow-sm hover:bg-gray-100 !border-b-0">
+              <TableRow key={headerGroup.id} className="hover:bg-white/0">
                 {headerGroup.headers.map((header) => (
                   <TableHead key={header.id} className={`${header.column.id === 'select' ? 'w-[50px]' : ''} ${header.column.id === 'actions' ? 'text-right' : ''} font-semibold text-gray-700`}>
                     {header.isPlaceholder
@@ -145,12 +145,12 @@ export default function UsersPage() {
                 >
                   {row.getVisibleCells().map((cell, cellIndex) => (
                     <TableCell
-                    key={cell.id}
-                    className={cn(
-                      row.getIsSelected() ? "bg-muted" : "bg-white",
-                      //"group-[data-state=selected]:bg-muted",
-                      //"group-hover:bg-muted/50", // 親のホバー状態に反応して背景色を変更
-                      "p-4",      // パディング任意
+                      key={cell.id}
+                      className={cn(
+                        row.getIsSelected() ? "bg-muted" : "bg-white",
+                        //"group-[data-state=selected]:bg-muted",
+                        //"group-hover:bg-muted/50", // 親のホバー状態に反応して背景色を変更
+                        //"p-4",      // パディング任意
                         cell.column.id === 'select' && 'w-[50px]',
                         cell.column.id === 'actions' && 'text-right',
                         cellIndex === 0 && 'rounded-l-xl',
