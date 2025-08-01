@@ -47,6 +47,9 @@ export default function SchedulePage() {
     return Object.values(filteredGroupedTasks).reduce((sum, tasks) => sum + tasks.length, 0);
   }, [filteredGroupedTasks]);
 
+  const triggerClassName =
+    'flex items-center space-x-2 px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-white data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:bg-gray-100 cursor-pointer';
+
   const renderContent = () => {
     if (isLoadingTasks) {
       return (
@@ -92,21 +95,21 @@ export default function SchedulePage() {
           <TabsList className="bg-white p-1 rounded-lg shadow-sm lg:h-[50px]">
             <TabsTrigger
               value="list"
-              className="flex items-center space-x-2 px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-white data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:bg-gray-100 cursor-pointer"
+              className={triggerClassName}
             >
               <FaList className="size-4" />
               List
             </TabsTrigger>
             <TabsTrigger
               value="board"
-              className="flex items-center space-x-2 px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-white data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:bg-gray-100 cursor-pointer"
+              className={triggerClassName}
             >
               <FaTableCellsLarge className="size-4" />
               Board
             </TabsTrigger>
             <TabsTrigger
               value="timeline"
-              className="flex items-center space-x-2 px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-white data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:bg-gray-100 cursor-pointer"
+              className={triggerClassName}
             >
               <RiTimelineView className="size-4" />
               Timeline

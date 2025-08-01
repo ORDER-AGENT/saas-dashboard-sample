@@ -30,11 +30,11 @@ export default function MessagesPage() {
   }, [messages, activeTab]);
 
   const triggerClassName =
-    'flex-1 rounded-none border-x-0 border-t-0 px-4 py-2 text-gray-500 hover:text-accent-foreground data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:font-semibold data-[state=active]:text-primary data-[state=active]:shadow-none';
+    'flex-1 rounded-none border-x-0 border-t-0 px-4 py-2 text-gray-500 hover:text-accent-foreground data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:font-semibold data-[state=active]:text-primary data-[state=active]:shadow-none cursor-pointer';
 
   return (
     <ContentLayout>
-      <div className="flex h-full">
+      <div className="flex flex-1 overflow-hidden">
         {/* 左側のメッセージリスト部分 */}
         <div className="w-1/3 border-r border-gray-200 p-4 flex flex-col">
           <div className="flex justify-between items-center mb-4">
