@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useMemo, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FaList, FaTableCellsLarge } from 'react-icons/fa6';
 import { RiTimelineView } from 'react-icons/ri';
@@ -8,6 +9,9 @@ import { useTasks } from '@/hooks/useTasks';
 import { BeatLoader } from 'react-spinners';
 import TaskTable from './TaskTable';
 import TaskBoard from './TaskBoard';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { IoIosSearch } from 'react-icons/io';
 
 export default function SchedulePage() {
   const {
@@ -15,6 +19,32 @@ export default function SchedulePage() {
     groupedTasks,
     isLoading: isLoadingTasks,
   } = useTasks();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredGroupedTasks = useMemo(() => {
+    if (!groupedTasks) return {};
+    if (!searchTerm) return groupedTasks;
+
+    const lowercasedSearchTerm = searchTerm.toLowerCase();
+    const filtered: { [key: string]: any[] } = {};
+
+    for (const status in groupedTasks) {
+      if (Object.prototype.hasOwnProperty.call(groupedTasks, status)) {
+        const tasks = groupedTasks[status as keyof typeof groupedTasks];
+        if (tasks) {
+          filtered[status] = tasks.filter(task =>
+            task.title.toLowerCase().includes(lowercasedSearchTerm)
+          );
+        }
+      }
+    }
+    return filtered;
+  }, [groupedTasks, searchTerm]);
+
+  const totalFilteredTasks = useMemo(() => {
+    if (!filteredGroupedTasks) return 0;
+    return Object.values(filteredGroupedTasks).reduce((sum, tasks) => sum + tasks.length, 0);
+  }, [filteredGroupedTasks]);
 
   const renderContent = () => {
     if (isLoadingTasks) {
@@ -25,10 +55,12 @@ export default function SchedulePage() {
       );
     }
 
-    if (!scheduleTasks || scheduleTasks.length === 0) {
+    if (!isLoadingTasks && totalFilteredTasks === 0) {
       return (
         <div className="flex items-center justify-center h-96">
-          <p>タスクが見つかりません。</p>
+          <p>
+            {searchTerm ? '検索条件に一致するタスクが見つかりません。' : 'タスクが見つかりません。'}
+          </p>
         </div>
       );
     }
@@ -36,10 +68,10 @@ export default function SchedulePage() {
     return (
       <>
         <TabsContent value="list">
-          <TaskTable tasks={groupedTasks} />
+          <TaskTable tasks={filteredGroupedTasks} />
         </TabsContent>
         <TabsContent value="board">
-          <TaskBoard tasks={groupedTasks} />
+          <TaskBoard tasks={filteredGroupedTasks} />
         </TabsContent>
         <TabsContent value="timeline">
           <div className="rounded-lg border p-4">
@@ -79,6 +111,21 @@ export default function SchedulePage() {
               Timeline
             </TabsTrigger>
           </TabsList>
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search Tasks"
+                className="pl-8 pr-4 py-2 border rounded-md bg-white"
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+              />
+              <IoIosSearch className="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+            <Button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90">
+              + Add Task
+            </Button>
+          </div>
         </div>
         {renderContent()}
       </Tabs>
