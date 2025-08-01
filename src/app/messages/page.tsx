@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState, useMemo } from 'react';
 import ContentLayout from '@/components/ContentLayout';
 import { GoPlus } from 'react-icons/go';
 import { Button } from '@/components/ui/button';
@@ -12,9 +13,24 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
-
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { cn } from '@/lib/utils';
+import { useMessages } from '@/hooks/useMessages';
+import { BeatLoader } from 'react-spinners';
 
 export default function MessagesPage() {
+  const [activeTab, setActiveTab] = useState('all');
+  const { messages, isLoading } = useMessages();
+
+  const filteredMessages = useMemo(() => {
+    if (!messages) return [];
+    if (activeTab === 'all') return messages;
+    return messages.filter(message => message.type === activeTab);
+  }, [messages, activeTab]);
+
+  const triggerClassName =
+    'flex-1 rounded-none border-x-0 border-t-0 px-4 py-2 text-gray-500 hover:text-accent-foreground data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:font-semibold data-[state=active]:text-primary data-[state=active]:shadow-none';
+
   return (
     <ContentLayout>
       <div className="flex h-full">
@@ -34,95 +50,70 @@ export default function MessagesPage() {
             />
             <IoIosSearch className="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
           </div>
-          <div className="flex mb-4 border-b border-gray-200">
-            {/* buttonをButtonコンポーネントに置き換え */}
-            <Button variant="ghost" className="px-4 py-2 text-purple-600 border-b-2 border-purple-600 font-semibold rounded-none">All</Button>
-            <Button variant="ghost" className="px-4 py-2 text-gray-500 hover:text-purple-600 rounded-none">Personal</Button>
-            <Button variant="ghost" className="px-4 py-2 text-gray-500 hover:text-purple-600 rounded-none">Teams</Button>
-          </div>
+          <Tabs
+            defaultValue="all"
+            className="mb-4"
+            onValueChange={value => setActiveTab(value)}
+          >
+            <TabsList className="w-full rounded-none bg-transparent p-0 border-b border-gray-200">
+              <TabsTrigger
+                value="all"
+                className={triggerClassName}
+              >
+                All
+              </TabsTrigger>
+              <TabsTrigger
+                value="personal"
+                className={triggerClassName}
+              >
+                Personal
+              </TabsTrigger>
+              <TabsTrigger
+                value="teams"
+                className={triggerClassName}
+              >
+                Teams
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
           <div className="flex-1 overflow-y-auto">
-            {/* Shelby Goode */}
-            <div className="flex items-center p-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer">
-              <img src="https://github.com/evilrabbit.png" alt="Shelby Goode" className="w-10 h-10 rounded-full mr-3" />
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">Shelby Goode</h3>
-                  <span className="text-xs text-gray-500">1 min ago</span>
+            {isLoading ? (
+              <div className="flex items-center justify-center h-full">
+                <BeatLoader color="#36d7b7" size={15} />
+              </div>
+            ) : (
+              filteredMessages.map(message => (
+                <div
+                  key={message.id}
+                  className={cn(
+                    'flex items-center p-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer relative',
+                    { 'bg-gray-100': message.active }
+                  )}
+                >
+                  <img
+                    src={message.avatar}
+                    alt={message.name}
+                    className="w-10 h-10 rounded-full mr-3"
+                  />
+                  <div className="flex-1">
+                    <div className="flex justify-between items-center">
+                      <h3 className="font-semibold">{message.name}</h3>
+                      <span className="text-xs text-gray-500">
+                        {message.timestamp}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 truncate">
+                      {message.lastMessage}
+                    </p>
+                  </div>
+                  {message.online && (
+                    <span className="absolute top-0 right-0 bg-green-500 text-white text-xs rounded-full px-2 py-1">
+                      Online
+                    </span>
+                  )}
                 </div>
-                <p className="text-sm text-gray-600 truncate">Lorem Ipsum is simply dummy text of the printing</p>
-              </div>
-            </div>
-
-            {/* Robert Bacins */}
-            <div className="flex items-center p-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer">
-              <img src="https://github.com/vercel.png" alt="Robert Bacins" className="w-10 h-10 rounded-full mr-3" />
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">Robert Bacins</h3>
-                  <span className="text-xs text-gray-500">9 min ago</span>
-                </div>
-                <p className="text-sm text-gray-600 truncate">Lorem Ipsum is simply dummy text of the printing</p>
-              </div>
-            </div>
-
-            {/* John Carlio (アクティブ) */}
-            <div className="flex items-center p-2 mb-2 rounded-lg bg-gray-100 cursor-pointer relative">
-              <img src="https://github.com/shadcn.png" alt="John Carlio" className="w-10 h-10 rounded-full mr-3" />
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">John Carlio</h3>
-                  <span className="text-xs text-gray-500">15 min ago</span>
-                </div>
-                <p className="text-sm text-gray-600 truncate">Lorem Ipsum is simply dummy text of the printing</p>
-              </div>
-              {/* Online indicator */}
-              <span className="absolute top-0 right-0 bg-green-500 text-white text-xs rounded-full px-2 py-1">Online</span>
-            </div>
-
-            {/* Adriene Watson */}
-            <div className="flex items-center p-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer">
-              <img src="https://github.com/tailwindcss.png" alt="Adriene Watson" className="w-10 h-10 rounded-full mr-3" />
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">Adriene Watson</h3>
-                  <span className="text-xs text-gray-500">21 min ago</span>
-                </div>
-                <p className="text-sm text-gray-600 truncate">Lorem Ipsum is simply dummy text of the printing</p>
-              </div>
-            </div>
-
-            {/* Jhon Deo */}
-            <div className="flex items-center p-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer">
-              <img src="https://github.com/reactjs.png" alt="Jhon Deo" className="w-10 h-10 rounded-full mr-3" />
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">Jhon Deo</h3>
-                  <span className="text-xs text-gray-500">29 min ago</span>
-                </div>
-                <p className="text-sm text-gray-600 truncate">Lorem Ipsum is simply dummy text of the printing</p>
-              </div>
-            </div>
-
-            {/* Mark Ruffalo */}
-            <div className="flex items-center p-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer">
-              <img src="https://github.com/nextjs.png" alt="Mark Ruffalo" className="w-10 h-10 rounded-full mr-3" />
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">Mark Ruffalo</h3>
-                  <span className="text-xs text-gray-500">45 min ago</span>
-                </div>
-                <p className="text-sm text-gray-600 truncate">Lorem Ipsum is simply dummy text of the printing</p>
-              </div>
-            </div>
-
-            {/* Bethany Jackson */}
-            <div className="flex items-center p-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer">
-              <img src="https://github.com/nodejs.png" alt="Bethany Jackson" className="w-10 h-10 rounded-full mr-3" />
-              <div className="flex-1">
-                <h3 className="font-semibold">Bethany Jackson</h3>
-                <p className="text-sm text-gray-600 truncate">Lorem Ipsum is simply dummy text of the printing</p>
-              </div>
-            </div>
+              ))
+            )}
           </div>
         </div>
         {/* 右側のチャット会話画面部分 */}
@@ -131,7 +122,6 @@ export default function MessagesPage() {
           <div className="flex justify-between items-center pb-4 border-b border-gray-200">
             <div className="flex items-center">
               <img src="https://github.com/shadcn.png" alt="John Carlio" className="w-10 h-10 rounded-full mr-3" />
-              <img src="https://via.placeholder.com/40" alt="John Carlio" className="w-10 h-10 rounded-full mr-3" />
               <div>
                 <h3 className="font-semibold">John Carlio</h3>
                 <p className="text-sm text-green-500">Online</p>
