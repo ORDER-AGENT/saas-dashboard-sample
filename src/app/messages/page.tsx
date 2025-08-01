@@ -32,14 +32,6 @@ export default function MessagesPage() {
   const triggerClassName =
     'flex-1 rounded-none border-x-0 border-t-0 px-4 py-2 text-gray-500 hover:text-accent-foreground data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:font-semibold data-[state=active]:text-primary data-[state=active]:shadow-none';
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <SimpleSpinner />
-      </div>
-    );
-  }
-
   return (
     <ContentLayout>
       <div className="flex h-full">

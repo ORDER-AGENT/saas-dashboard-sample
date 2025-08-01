@@ -115,7 +115,7 @@ function UsersPage() {
               </TableRow>
             ) : isLoadingUsers ? (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24">
+                <TableCell colSpan={columns.length} className="h-16">
                   <div className="w-full h-full flex items-center justify-center">
                     <SimpleSpinner />
                   </div>

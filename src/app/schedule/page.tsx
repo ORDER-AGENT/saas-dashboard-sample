@@ -50,7 +50,7 @@ export default function SchedulePage() {
   const renderContent = () => {
     if (isLoadingTasks) {
       return (
-        <div className="flex items-center justify-center h-96">
+        <div className="flex items-center justify-center h-16">
           <SimpleSpinner />
         </div>
       );
