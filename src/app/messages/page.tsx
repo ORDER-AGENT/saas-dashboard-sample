@@ -16,7 +16,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { useMessages } from '@/hooks/useMessages';
-import { BeatLoader } from 'react-spinners';
+import SimpleSpinner from '@/components/loader/SimpleSpinner';
 
 export default function MessagesPage() {
   const [activeTab, setActiveTab] = useState('all');
@@ -30,6 +30,14 @@ export default function MessagesPage() {
 
   const triggerClassName =
     'flex-1 rounded-none border-x-0 border-t-0 px-4 py-2 text-gray-500 hover:text-accent-foreground data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:font-semibold data-[state=active]:text-primary data-[state=active]:shadow-none';
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <SimpleSpinner />
+      </div>
+    );
+  }
 
   return (
     <ContentLayout>
@@ -79,7 +87,7 @@ export default function MessagesPage() {
           <div className="flex-1 overflow-y-auto">
             {isLoading ? (
               <div className="flex items-center justify-center h-full">
-                <BeatLoader color="#36d7b7" size={15} />
+                <SimpleSpinner />
               </div>
             ) : (
               filteredMessages.map(message => (

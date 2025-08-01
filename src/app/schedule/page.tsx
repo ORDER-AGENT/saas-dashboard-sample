@@ -6,13 +6,13 @@ import { FaList, FaTableCellsLarge } from 'react-icons/fa6';
 import { RiTimelineView } from 'react-icons/ri';
 import ContentLayout from '@/components/ContentLayout';
 import { useTasks } from '@/hooks/useTasks';
-import { BeatLoader } from 'react-spinners';
 import TaskTable from './TaskTable';
 import TaskBoard from './TaskBoard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { IoIosSearch } from 'react-icons/io';
 import { Task } from '@/types/tasks';
+import SimpleSpinner from '@/components/loader/SimpleSpinner';
 
 export default function SchedulePage() {
   const {
@@ -51,7 +51,7 @@ export default function SchedulePage() {
     if (isLoadingTasks) {
       return (
         <div className="flex items-center justify-center h-96">
-          <BeatLoader color="#36d7b7" size={15} />
+          <SimpleSpinner />
         </div>
       );
     }

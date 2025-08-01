@@ -7,7 +7,7 @@ import { signIn } from 'next-auth/react';
 import ContentLayout from '@/components/ContentLayout';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import { BeatLoader } from 'react-spinners';
+import SimpleSpinner from '@/components/loader/SimpleSpinner';
 
 function AdminForm() {
   const [password, setPassword] = useState('');
@@ -81,7 +81,7 @@ function AdminForm() {
 
 export default function AdminPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center items-center h-screen"><BeatLoader color="#36d7b7" size={15} /></div>}>
+    <Suspense fallback={<div className="flex justify-center items-center h-screen"><SimpleSpinner /></div>}>
       <AdminForm />
     </Suspense>
   );

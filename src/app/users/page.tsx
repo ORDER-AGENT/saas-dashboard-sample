@@ -24,7 +24,7 @@ import {
 } from '@tanstack/react-table';
 import { columns as userColumns } from './columns';
 import { useUsers } from '@/hooks/useUsers'; // useUsers フックをインポート
-import { BeatLoader } from 'react-spinners'; // BeatLoaderをインポート
+import SimpleSpinner from '@/components/loader/SimpleSpinner';
 import { cn } from '@/lib/utils'; // cn をインポート
 
 export default function UsersPage() {
@@ -125,7 +125,7 @@ export default function UsersPage() {
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24"> {/* ここから flex/items-center/justify-center を削除 */}
                   <div className="w-full h-full flex items-center justify-center"> {/* 新しい div を追加し、これにセンタリングのスタイルを適用 */}
-                    <BeatLoader color="#36d7b7" size={15} />
+                    <SimpleSpinner />
                   </div>
                 </TableCell>
               </TableRow>
