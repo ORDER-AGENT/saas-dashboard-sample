@@ -10,7 +10,47 @@ import TaskTable from './TaskTable';
 import TaskBoard from './TaskBoard';
 
 export default function SchedulePage() {
-  const { tasks: scheduleTasks, isLoading: isLoadingTasks } = useTasks();
+  const {
+    tasks: scheduleTasks,
+    groupedTasks,
+    isLoading: isLoadingTasks,
+  } = useTasks();
+
+  const renderContent = () => {
+    if (isLoadingTasks) {
+      return (
+        <div className="flex items-center justify-center h-96">
+          <BeatLoader color="#36d7b7" size={15} />
+        </div>
+      );
+    }
+
+    if (!scheduleTasks || scheduleTasks.length === 0) {
+      return (
+        <div className="flex items-center justify-center h-96">
+          <p>タスクが見つかりません。</p>
+        </div>
+      );
+    }
+
+    return (
+      <>
+        <TabsContent value="list">
+          <TaskTable tasks={groupedTasks} />
+        </TabsContent>
+        <TabsContent value="board">
+          <TaskBoard tasks={groupedTasks} />
+        </TabsContent>
+        <TabsContent value="timeline">
+          <div className="rounded-lg border p-4">
+            <h2 className="text-xl font-semibold">Timeline View</h2>
+            {/* Timeline コンテンツをここに追加 */}
+            <p>ここにタイムラインのコンテンツが入ります。</p>
+          </div>
+        </TabsContent>
+      </>
+    );
+  };
 
   return (
     <ContentLayout headerLeftContent={<h1 className="text-2xl font-bold">Task Preview</h1>}>
@@ -40,39 +80,7 @@ export default function SchedulePage() {
             </TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent value="list">
-          {isLoadingTasks ? (
-            <div className="flex items-center justify-center h-96">
-              <BeatLoader color="#36d7b7" size={15} />
-            </div>
-          ) : scheduleTasks && scheduleTasks.length > 0 ? (
-            <TaskTable tasks={scheduleTasks} />
-          ) : (
-            <div className="flex items-center justify-center h-96">
-              <p>タスクが見つかりません。</p>
-            </div>
-          )}
-        </TabsContent>
-        <TabsContent value="board">
-          {isLoadingTasks ? (
-            <div className="flex items-center justify-center h-96">
-              <BeatLoader color="#36d7b7" size={15} />
-            </div>
-          ) : scheduleTasks && scheduleTasks.length > 0 ? (
-            <TaskBoard tasks={scheduleTasks} />
-          ) : (
-            <div className="flex items-center justify-center h-96">
-              <p>タスクが見つかりません。</p>
-            </div>
-          )}
-        </TabsContent>
-        <TabsContent value="timeline">
-          <div className="rounded-lg border p-4">
-            <h2 className="text-xl font-semibold">Timeline View</h2>
-            {/* Timeline コンテンツをここに追加 */}
-            <p>ここにタイムラインのコンテンツが入ります。</p>
-          </div>
-        </TabsContent>
+        {renderContent()}
       </Tabs>
     </ContentLayout>
   );

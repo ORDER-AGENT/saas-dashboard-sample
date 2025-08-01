@@ -10,42 +10,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
+import { getStatusBadgeClass } from '@/lib/utils';
 
 type TaskTableProps = {
-  tasks: Task[];
+  tasks: { [key in TaskStatus]?: Task[] };
   showHeader?: boolean;
 };
 
-const getStatusBadgeClass = (status: string) => {
-  switch (status) {
-    case 'Pending':
-      return 'bg-orange-100 text-orange-800';
-    case 'Running':
-      return 'bg-blue-100 text-blue-800';
-    case 'Done':
-      return 'bg-green-100 text-green-800';
-    default:
-      return 'bg-gray-100 text-gray-800';
-  }
-};
+const taskGroupsConfig = [
+  { status: TaskStatus.Todo, title: '未着手' },
+  { status: TaskStatus.InProgress, title: '進行中' },
+  { status: TaskStatus.InReview, title: '確認待ち' },
+  { status: TaskStatus.Done, title: '完了' },
+];
 
 const TaskTable = ({ tasks, showHeader = true }: TaskTableProps) => {
-  const todoTasks = tasks.filter((task) => task.initialStatus === TaskStatus.Todo);
-  const inProgressTasks = tasks.filter(
-    (task) => task.initialStatus === TaskStatus.InProgress
-  );
-  const inReviewTasks = tasks.filter(
-    (task) => task.initialStatus === TaskStatus.InReview
-  );
-  const doneTasks = tasks.filter((task) => task.initialStatus === TaskStatus.Done);
-
-  const taskGroups = [
-    { title: '未着手', tasks: todoTasks },
-    { title: '進行中', tasks: inProgressTasks },
-    { title: '確認待ち', tasks: inReviewTasks },
-    { title: '完了', tasks: doneTasks },
-  ].filter((group) => group.tasks.length > 0);
+  const taskGroups = taskGroupsConfig
+    .map((group) => ({
+      ...group,
+      tasks: tasks[group.status] || [],
+    }))
+    .filter((group) => group.tasks.length > 0);
 
   return (
     <div className="space-y-8">
@@ -89,7 +75,11 @@ const TaskTable = ({ tasks, showHeader = true }: TaskTableProps) => {
                   <TableCell className="text-red-500">{task.endDate}</TableCell>
                   <TableCell className="text-gray-600">{task.member}</TableCell>
                   <TableCell>
-                    <span className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusBadgeClass(task.status)}`}>
+                    <span
+                      className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusBadgeClass(
+                        task.status,
+                      )}`}
+                    >
                       {task.status}
                     </span>
                   </TableCell>
