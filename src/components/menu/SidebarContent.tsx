@@ -59,7 +59,7 @@ export default function SidebarContent({
 
         {/* 動的なメニュー項目はロード状態に応じて表示を切り替え */}
         {isDynamicLoading ? (
-          <div className="flex items-center justify-center h-full w-full py-4">
+          <div className="flex items-center justify-center w-full py-4">
             <SimpleSpinner size={isMenuOpenForContent ? 15 : 10} />
           </div>
         ) : (
