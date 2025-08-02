@@ -34,23 +34,21 @@ export default function SidebarMenuItem({
   
   // メニュー項目全体のベーススタイル
   const itemBaseClasses = `
-    flex items-center justify-start pl-5 relative overflow-hidden
-    transition-all duration-150 ease-in-out
+    flex items-center justify-start pl-5 relative overflow-hidden h-[40px]
+    transition-all duration-[var(--sidebar-animation-duration)] ease-in-out
     ${isSelected ? 'text-primary' : 'text-secondary hover:text-accent-foreground'} // ホバー時のテキスト色を追加
-    ${isMenuOpen ? 'h-[40px] w-full' : 'h-[40px] w-full'}
   `;
 
 
   // アイコン部分のスタイル
   const iconClasses = `
-    flex-shrink-0 flex items-center justify-center size-6 z-10
-    ${isMenuOpen ? 'mr-2' : 'mr-0'}
+    flex-shrink-0 flex items-center justify-center size-6 z-10 mr-2
   `;
 
   // テキスト部分のスタイル
   const textClasses = `
-    text-base overflow-hidden transition-all duration-150 ease-in-out whitespace-nowrap
-    ${isMenuOpen ? 'w-auto opacity-100' : 'w-0 opacity-0 pointer-events-none'}
+    text-base overflow-hidden transition-all duration-[var(--sidebar-animation-duration)] ease-in-out whitespace-nowrap
+    ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
   `;
 
   const handleClick = () => {

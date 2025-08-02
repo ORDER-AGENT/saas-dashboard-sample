@@ -54,7 +54,7 @@ export default function RootLayoutClient({
               />
               {/* メインコンテンツ領域 */}
               <main
-                className={`flex-grow overflow-auto transition-[margin-left] duration-150 ease-in-out ${
+                className={`flex-grow overflow-auto transition-[margin-left] duration-[var(--sidebar-animation-duration)] ease-in-out ${
                   isMenuOpen ? 'lg:ml-[var(--sidebar-width-open)] md:ml-[var(--sidebar-width-closed)]' : 'lg:ml-[var(--sidebar-width-closed)] md:ml-[var(--sidebar-width-closed)]'
                 }`}
               >

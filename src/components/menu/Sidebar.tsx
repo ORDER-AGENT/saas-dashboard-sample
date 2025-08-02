@@ -25,8 +25,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
   const [touchStartX, setTouchStartX] = useState(0); // スワイプ開始時のX座標を保持するステート
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
   const [isOverlayVisible, setIsOverlayVisible] = useState(false); // オーバーレイメニューの表示状態を制御する新しいステート
-  const [isMenuOpenAnimation, setIsMenuOpenAnimation] = useState(false); // メニュー開閉アニメーション用の新しいステート
-
+  
   // ログイン状態を判定
   const isLoggedIn = status === 'authenticated';
 
@@ -89,19 +88,6 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
       setIsOverlayVisible(false);
     }
 
-    // SidebarMenuItemのテキストアニメーションを制御（閉じきるまではテキストを消さないように）
-    let timer: NodeJS.Timeout;
-    if (!isMenuOpen || isLargeScreen === false) {
-      // メニューが閉じている、または大画面ではない場合、アニメーション終了を待ってから非表示にする
-      timer = setTimeout(() => {
-        setIsMenuOpenAnimation(false);
-      }, 150); // SidebarMenuItemのテキストトランジション時間に合わせて調整 (0.15s)
-    }
-    else if (isMenuOpen && isLargeScreen === true) {
-      setIsMenuOpenAnimation(true);
-    }
-    return () => clearTimeout(timer); // クリーンアップ
-
   }, [isMenuOpen, isLargeScreen]); // isMenuOpen と isLargeScreen に依存
 
   // ホバー中のアイテムキーを管理
@@ -154,7 +140,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
     <>
       {/* 大中画面用サイドバー (md以上で表示) */}
       <div
-        className={`hidden md:flex lg:flex flex-col fixed left-0 top-[var(--header-height)] h-[calc(100dvh-var(--header-height))] bg-white flex-shrink-0 z-12 transition-all duration-150 ease-in-out
+        className={`hidden md:flex lg:flex flex-col fixed left-0 top-[var(--header-height)] h-[calc(100dvh-var(--header-height))] bg-white flex-shrink-0 z-12 transition-all duration-[var(--sidebar-animation-duration)] ease-in-out
           ${isMenuOpen ? 'lg:w-[var(--sidebar-width-open)] md:w-[var(--sidebar-width-closed)]' : 'w-[var(--sidebar-width-closed)]'}`}
       >
 
@@ -168,7 +154,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
             onMouseEnter={setHoveredItem}
             onMouseLeave={setHoveredItem}
             handleMenuItemClick={handleMenuItemClick}
-            isMenuOpenForContent={isMenuOpenAnimation}
+            isMenuOpenForContent={isMenuOpen && isLargeScreen !== null && isLargeScreen}
             isDynamicLoading={status === 'loading'}
           />
           {/* 伸縮して空白を埋めるクリック可能な領域 */}
@@ -181,7 +167,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         {/* ログイン/ログアウトボタンをサイドバー全体の最下部に追加 */}
         <div className="w-full h-[60px] bg-white flex items-center z-10 mt-auto">
           {
-            renderAuthMenuItem(isMenuOpenAnimation, 'desktop')
+            renderAuthMenuItem(isMenuOpen, 'desktop')
           }
         </div>
       </div>
@@ -192,11 +178,11 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         <>
           {/* オーバーレイメニュー背景*/}
           <div
-            className={`fixed inset-0 z-14 bg-black/50 transition-opacity duration-150 ease-in-out ${isOverlayVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            className={`fixed inset-0 z-14 bg-black/50 transition-opacity duration-[var(--sidebar-animation-duration)] ease-in-out ${isOverlayVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
             onClick={onMenuToggleClick}
           />
           <div
-            className={`fixed top-0 left-0 h-[100dvh] w-[var(--sidebar-width-open)] bg-white z-16 flex flex-col items-start transition-transform duration-150 ease-in-out
+            className={`fixed top-0 left-0 h-[100dvh] w-[var(--sidebar-width-open)] bg-white z-16 flex flex-col items-start transition-transform duration-[var(--sidebar-animation-duration)] ease-in-out
               ${isOverlayVisible ? 'translate-x-0' : '-translate-x-full'}`}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
