@@ -34,7 +34,7 @@ export default function SidebarContent({
   return (
     <>
       {/* メニュー項目をループでレンダリングするエリア */}
-      <div className="flex-grow flex flex-col w-full">
+      <div className="flex flex-col w-full">
         {/* 静的なメニュー項目を常に表示 */}
         {staticMenuItems.map((item) => {
           if (item.type === 'divider') {

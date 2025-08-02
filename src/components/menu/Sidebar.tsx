@@ -33,6 +33,13 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
   // ログイン状態に基づいてロールを決定（暫定対応）
   const userRoles = isLoggedIn ? ['admin', 'guest'] : ['guest'];
 
+  const handleSidebarToggle = (e: React.MouseEvent<HTMLDivElement>) => {
+    // クリックがコンテナ自身（空白領域）から発生した場合にのみトグルを実行
+    if (e.target === e.currentTarget) {
+      onMenuToggleClick();
+    }
+  };
+
   // ログイン/ログアウトメニュー項目をレンダリングするヘルパー関数
   const renderAuthMenuItem = (isMenuOpenForText: boolean, keyPrefix: string) => {
     const menuOpenState = isMenuOpenForText;
@@ -152,7 +159,9 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
       >
 
         {/* メニュー項目をループでレンダリングするエリア */}
-        <div className="absolute top-0 bottom-[var(--header-height)] left-0 w-full overflow-y-auto overflow-x-hidden flex flex-col items-start">
+        <div
+          className="absolute top-0 bottom-[var(--header-height)] left-0 w-full overflow-y-auto overflow-x-hidden flex flex-col items-start"
+        >
           <SidebarContent
             menuItems={menuItems}
             hoveredItem={hoveredItem}
@@ -161,6 +170,11 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
             handleMenuItemClick={handleMenuItemClick}
             isMenuOpenForContent={isMenuOpenAnimation}
             isDynamicLoading={status === 'loading'}
+          />
+          {/* 伸縮して空白を埋めるクリック可能な領域 */}
+          <div
+            className="flex-grow w-full cursor-pointer"
+            onClick={handleSidebarToggle}
           />
         </div>
 
@@ -190,7 +204,9 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
               <SidebarHeader onMenuToggleClick={onMenuToggleClick} />
 
               {/* メニュー項目をループでレンダリング（小画面用） */}
-              <div className="flex-grow overflow-y-auto w-full">
+              <div
+                className="flex-grow overflow-y-auto w-full flex flex-col"
+              >
                 <SidebarContent
                   menuItems={menuItems}
                   hoveredItem={hoveredItem}
@@ -199,6 +215,11 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
                   handleMenuItemClick={handleOverlayItemClick}
                   isMenuOpenForContent={true}
                   isDynamicLoading={status === 'loading'}
+                />
+                {/* 伸縮して空白を埋めるクリック可能な領域 */}
+                <div
+                  className="flex-grow w-full cursor-pointer"
+                  onClick={handleSidebarToggle}
                 />
               </div>
               {/* ログイン/ログアウトボタンをサイドメニュー最下部に追加（小画面用） */}
