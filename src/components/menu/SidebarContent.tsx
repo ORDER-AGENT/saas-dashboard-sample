@@ -48,7 +48,7 @@ export default function SidebarContent({
             onMouseLeave={() => onMouseLeave(null)}
             onClick={() => handleMenuItemClick(item.key)}
             path={item.path}
-            isExternal={item.isDynamic}
+            isExternal={item.isExternal ?? false}
           />
         ))}
 
@@ -70,7 +70,7 @@ export default function SidebarContent({
               onMouseLeave={() => onMouseLeave(null)}
               onClick={() => handleMenuItemClick(item.key)}
               path={item.path}
-              isExternal={item.isDynamic}
+              isExternal={item.isExternal ?? false}
             />
           ))
         )}

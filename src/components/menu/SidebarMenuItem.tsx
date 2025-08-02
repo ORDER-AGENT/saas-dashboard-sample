@@ -54,15 +54,7 @@ export default function SidebarMenuItem({
   `;
 
   const handleClick = () => {
-    // 外部リンクの場合は新しいタブで開く
-    if (isExternal && path) {
-      window.open(path, '_blank');
-      onClick(); // クリックハンドラも実行
-    } else if (path) {
-      onClick(); // クリックハンドラも実行
-    } else {
-      onClick(); // パスがない場合はクリックハンドラのみ実行
-    }
+    onClick(); // isExternal の条件分岐を削除し、onClickのみを呼び出す
   };
 
   const commonProps = {

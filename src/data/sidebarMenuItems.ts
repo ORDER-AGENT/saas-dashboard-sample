@@ -2,6 +2,7 @@ import { IconType } from 'react-icons';
 import { RiDashboardHorizontalFill, RiSettings5Fill, RiCalendarScheduleFill } from 'react-icons/ri';
 import { PiLockKeyOpenFill } from 'react-icons/pi';
 import { HiUsers } from 'react-icons/hi2';
+import { FaGithub, FaFigma } from 'react-icons/fa';
 //import { GrSchedules } from 'react-icons/gr';
 import { IoNotifications } from 'react-icons/io5';
 import { BsChatDotsFill } from 'react-icons/bs';
@@ -14,6 +15,7 @@ export interface SidebarMenuItemType {
   isDynamic: boolean;
   roles?: string[];
   displayInFooter?: boolean;
+  isExternal?: boolean;
 }
 
 export const allMenuItems: SidebarMenuItemType[] = [
@@ -73,6 +75,24 @@ export const allMenuItems: SidebarMenuItemType[] = [
     path: '/settings',
     isDynamic: false,
     displayInFooter: false,
+  },
+  {
+    key: 'github',
+    icon: FaGithub,
+    text: 'GitHub',
+    path: 'https://github.com/ORDER-AGENT/saas-dashboard-sample',
+    isDynamic: false,
+    displayInFooter: false,
+    isExternal: true,
+  },
+  {
+    key: 'figma',
+    icon: FaFigma,
+    text: 'Figma',
+    path: 'https://www.figma.com/community/file/1065510379888107603',
+    isDynamic: false,
+    displayInFooter: false,
+    isExternal: true,
   },
 ];
 
