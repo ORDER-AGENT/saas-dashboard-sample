@@ -1,25 +1,14 @@
-import { IconType } from 'react-icons';
-import { RiDashboardHorizontalFill, RiSettings5Fill, RiCalendarScheduleFill } from 'react-icons/ri';
-import { PiLockKeyOpenFill } from 'react-icons/pi';
+import { FaFigma, FaGithub } from 'react-icons/fa';
 import { HiUsers } from 'react-icons/hi2';
-import { FaGithub, FaFigma } from 'react-icons/fa';
-//import { GrSchedules } from 'react-icons/gr';
 import { IoNotifications } from 'react-icons/io5';
+import { PiLockKeyOpenFill } from 'react-icons/pi';
+import { RiCalendarScheduleFill, RiDashboardHorizontalFill, RiSettings5Fill } from 'react-icons/ri';
 import { BsChatDotsFill } from 'react-icons/bs';
-
-export interface SidebarMenuItemType {
-  key: string;
-  icon: IconType;
-  text: string;
-  path: string;
-  isDynamic: boolean;
-  roles?: string[];
-  displayInFooter?: boolean;
-  isExternal?: boolean;
-}
+import { SidebarMenuItemType } from '@/types/sidebar';
 
 export const allMenuItems: SidebarMenuItemType[] = [
   {
+    type: 'item',
     key: 'dashboard',
     icon: RiDashboardHorizontalFill,
     text: 'ダッシュボード',
@@ -28,6 +17,7 @@ export const allMenuItems: SidebarMenuItemType[] = [
     displayInFooter: true,
   },
   {
+    type: 'item',
     key: 'schedule',
     icon: RiCalendarScheduleFill,
     text: 'スケジュール',
@@ -36,6 +26,7 @@ export const allMenuItems: SidebarMenuItemType[] = [
     displayInFooter: true,
   },
   {
+    type: 'item',
     key: 'users',
     icon: HiUsers,
     text: 'ユーザー',
@@ -44,6 +35,7 @@ export const allMenuItems: SidebarMenuItemType[] = [
     displayInFooter: true,
   },
   {
+    type: 'item',
     key: 'secret',
     icon: PiLockKeyOpenFill,
     text: 'シークレット',
@@ -53,6 +45,7 @@ export const allMenuItems: SidebarMenuItemType[] = [
     displayInFooter: false,
   },
   {
+    type: 'item',
     key: 'messages',
     icon: BsChatDotsFill,
     text: 'メッセージ',
@@ -61,6 +54,7 @@ export const allMenuItems: SidebarMenuItemType[] = [
     displayInFooter: true,
   },
   {
+    type: 'item',
     key: 'notification',
     icon: IoNotifications,
     text: '通知',
@@ -69,6 +63,7 @@ export const allMenuItems: SidebarMenuItemType[] = [
     displayInFooter: true,
   },
   {
+    type: 'item',
     key: 'settings',
     icon: RiSettings5Fill,
     text: '設定',
@@ -77,6 +72,11 @@ export const allMenuItems: SidebarMenuItemType[] = [
     displayInFooter: false,
   },
   {
+    type: 'divider',
+    key: 'external-divider',
+  },
+  {
+    type: 'item',
     key: 'github',
     icon: FaGithub,
     text: 'GitHub',
@@ -86,6 +86,7 @@ export const allMenuItems: SidebarMenuItemType[] = [
     isExternal: true,
   },
   {
+    type: 'item',
     key: 'figma',
     icon: FaFigma,
     text: 'Figma',

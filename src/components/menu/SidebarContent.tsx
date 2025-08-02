@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SidebarMenuItem from './SidebarMenuItem';
-import { SidebarMenuItemType } from '@/data/sidebarMenuItems';
+import { SidebarMenuItemType } from '@/types/sidebar';
 import { usePathname } from 'next/navigation';
 import SimpleSpinner from '@/components/loader/SimpleSpinner';
 
@@ -28,37 +28,19 @@ export default function SidebarContent({
   const pathname = usePathname();
 
   // 静的なメニュー項目と動的なメニュー項目を分離
-  const staticMenuItems = menuItems.filter(item => !item.isDynamic);
-  const dynamicMenuItems = menuItems.filter(item => item.isDynamic);
+  const staticMenuItems = menuItems.filter(item => !(item.type === 'item' && item.isDynamic));
+  const dynamicMenuItems = menuItems.filter(item => item.type === 'item' && item.isDynamic);
 
   return (
     <>
       {/* メニュー項目をループでレンダリングするエリア */}
       <div className="flex-grow flex flex-col w-full">
         {/* 静的なメニュー項目を常に表示 */}
-        {staticMenuItems.map((item) => (
-          <SidebarMenuItem
-            key={item.key}
-            icon={item.icon}
-            text={item.text}
-            isMenuOpen={isMenuOpenForContent}
-            isSelected={pathname === item.path}
-            isHovered={hoveredItem === item.key}
-            onMouseEnter={() => onMouseEnter(item.key)}
-            onMouseLeave={() => onMouseLeave(null)}
-            onClick={() => handleMenuItemClick(item.key)}
-            path={item.path}
-            isExternal={item.isExternal ?? false}
-          />
-        ))}
-
-        {/* 動的なメニュー項目はロード状態に応じて表示を切り替え */}
-        {isDynamicLoading ? ( // isDynamicLoadingを使用
-          <div className="flex items-center justify-center h-full w-full py-4">
-            <SimpleSpinner size={isMenuOpenForContent ? 15 : 10} />
-          </div>
-        ) : (
-          dynamicMenuItems.map((item) => (
+        {staticMenuItems.map((item) => {
+          if (item.type === 'divider') {
+            return <div key={item.key} className="my-2 w-4/5 mx-auto border-t border-gray-200 dark:border-gray-700" />;
+          }
+          return (
             <SidebarMenuItem
               key={item.key}
               icon={item.icon}
@@ -72,7 +54,35 @@ export default function SidebarContent({
               path={item.path}
               isExternal={item.isExternal ?? false}
             />
-          ))
+          );
+        })}
+
+        {/* 動的なメニュー項目はロード状態に応じて表示を切り替え */}
+        {isDynamicLoading ? (
+          <div className="flex items-center justify-center h-full w-full py-4">
+            <SimpleSpinner size={isMenuOpenForContent ? 15 : 10} />
+          </div>
+        ) : (
+          dynamicMenuItems.map((item) => {
+            if (item.type === 'divider') {
+              return <div key={item.key} className="my-2 w-4/5 mx-auto border-t border-gray-200 dark:border-gray-700" />;
+            }
+            return (
+              <SidebarMenuItem
+                key={item.key}
+                icon={item.icon}
+                text={item.text}
+                isMenuOpen={isMenuOpenForContent}
+                isSelected={pathname === item.path}
+                isHovered={hoveredItem === item.key}
+                onMouseEnter={() => onMouseEnter(item.key)}
+                onMouseLeave={() => onMouseLeave(null)}
+                onClick={() => handleMenuItemClick(item.key)}
+                path={item.path}
+                isExternal={item.isExternal ?? false}
+              />
+            );
+          })
         )}
       </div>
     </>

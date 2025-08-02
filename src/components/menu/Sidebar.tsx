@@ -9,10 +9,8 @@ import SidebarContent from './SidebarContent';
 import SidebarHeader from './SidebarHeader';
 import { usePathname } from 'next/navigation';
 import useMediaQuery from '@/hooks/useMediaQuery';
-import {
-  getSidebarMenuItems,
-  SidebarMenuItemType,
-} from '@/data/sidebarMenuItems';
+import { getSidebarMenuItems } from '@/data/sidebarMenuItems';
+import { SidebarMenuItemType } from '@/types/sidebar';
 
 interface SidebarProps {
   onMenuToggleClick: () => void; // AppHeader に渡すためのプロップ

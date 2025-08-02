@@ -18,7 +18,7 @@ const useAuthorization = () => {
       return;
     }
 
-    const currentMenuItem = allMenuItems.find(item => item.path === pathname);
+    const currentMenuItem = allMenuItems.find(item => item.type === 'item' && item.path === pathname);
     const requiredRoles = currentMenuItem?.roles;
 
     if (!requiredRoles || requiredRoles.length === 0) {
