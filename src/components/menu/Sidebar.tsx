@@ -49,7 +49,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         icon={() => <TbLogout2 className="size-6" />}
         text="管理者ログアウト"
         isMenuOpen={menuOpenState}
-        isSelected={pathname === '/'}
+        isSelected={false}
         isHovered={hoveredItem === 'logout'}
         onMouseEnter={() => setHoveredItem('logout')}
         onMouseLeave={() => setHoveredItem(null)}
