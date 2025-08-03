@@ -166,7 +166,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
             onMouseEnter={setHoveredItem}
             onMouseLeave={setHoveredItem}
             handleMenuItemClick={handleMenuItemClick}
-            isMenuOpenForContent={isMenuOpen && !isOverlayVisible}
+            isMenuOpenForContent={isMenuOpen && isLargeScreen !== null && isLargeScreen}
           />
           {/* <SidebarContent
             menuItems={dynamicMenuItems}

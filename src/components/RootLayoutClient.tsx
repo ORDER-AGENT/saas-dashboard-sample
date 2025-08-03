@@ -18,18 +18,16 @@ export default function RootLayoutClient({
   children: React.ReactNode;
 }) {
   // サイドバーの開閉状態を管理。
-  // デスクトップでの初回表示を考慮し、デフォルトで開いた状態にする
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
   const isSmallScreen = useMediaQuery('(max-width: 767px)');
  
   // isMenuOpen の初期状態を isLargeScreen に応じて設定（Hydration後）
   useEffect(() => {
-    if (isLargeScreen !== null && isSmallScreen !== null) { // 両方の状態が確定してから設定
-      // 大画面の場合、メニューを開く
+    if (isLargeScreen !== null) {
       setIsMenuOpen(isLargeScreen);
     }
-  }, [isLargeScreen, isSmallScreen]);
+  }, [isLargeScreen]);
 
   const handleMenuToggleClick = () => { // メニューの開閉をトグルする関数を追加
     setIsMenuOpen(!isMenuOpen);
