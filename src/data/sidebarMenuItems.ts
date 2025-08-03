@@ -13,7 +13,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: RiDashboardHorizontalFill,
     text: 'ダッシュボード',
     path: '/',
-    isDynamic: false,
     displayInFooter: true,
   },
   {
@@ -22,7 +21,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: RiCalendarScheduleFill,
     text: 'スケジュール',
     path: '/schedule',
-    isDynamic: false,
     displayInFooter: true,
   },
   {
@@ -31,7 +29,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: HiUsers,
     text: 'ユーザー',
     path: '/users',
-    isDynamic: false,
     displayInFooter: true,
   },
   {
@@ -40,7 +37,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: PiLockKeyOpenFill,
     text: 'シークレット',
     path: '/secret',
-    isDynamic: false,
     roles: ['admin'],
     displayInFooter: false,
   },
@@ -50,7 +46,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: BsChatDotsFill,
     text: 'メッセージ',
     path: '/messages',
-    isDynamic: false,
     displayInFooter: true,
   },
   {
@@ -59,7 +54,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: IoNotifications,
     text: '通知',
     path: '/notification',
-    isDynamic: false,
     displayInFooter: true,
   },
   {
@@ -68,7 +62,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: RiSettings5Fill,
     text: '設定',
     path: '/settings',
-    isDynamic: false,
     displayInFooter: false,
   },
   {
@@ -81,7 +74,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: FaGithub,
     text: 'GitHub',
     path: 'https://github.com/ORDER-AGENT/saas-dashboard-sample',
-    isDynamic: false,
     displayInFooter: false,
     isExternal: true,
   },
@@ -91,7 +83,6 @@ export const allMenuItems: SidebarMenuItemType[] = [
     icon: FaFigma,
     text: 'Figma',
     path: 'https://www.figma.com/community/file/1065510379888107603',
-    isDynamic: false,
     displayInFooter: false,
     isExternal: true,
   },

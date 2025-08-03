@@ -94,10 +94,22 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   // 静的なメニュー項目データを定義
-  const menuItems: SidebarMenuItemType[] = getSidebarMenuItems(userRoles);
-
-  // すべてのメニュー項目を結合（動的メニューがある場合は追加）
-  // const menuItems = [...staticMenuItems /*, ...dynamicMenuItems*/];
+  const staticMenuItems: SidebarMenuItemType[] = getSidebarMenuItems(userRoles);
+  
+  // TODO: 動的なメニュー項目を取得するロジックを実装
+  // const [dynamicMenuItems, setDynamicMenuItems] = useState<SidebarMenuItemType[] | null>(null);
+  // useEffect(() => {
+  //   // 例: APIから動的メニュー項目を非同期で取得
+  //   const fetchDynamicMenuItems = async () => {
+  //     try {
+  //       // const items = await fetch('/api/dynamic-menu');
+  //       // setDynamicMenuItems(items);
+  //     } catch (error) {
+  //       console.error('Failed to fetch dynamic menu items:', error);
+  //     }
+  //   };
+  //   fetchDynamicMenuItems();
+  // }, []);
 
   // メニュー項目クリックハンドラを共通化
   const handleMenuItemClick = (key: string) => {
@@ -149,14 +161,21 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
           className="absolute top-0 bottom-[var(--header-height)] left-0 w-full overflow-y-auto overflow-x-hidden flex flex-col items-start"
         >
           <SidebarContent
-            menuItems={menuItems}
+            menuItems={staticMenuItems}
             hoveredItem={hoveredItem}
             onMouseEnter={setHoveredItem}
             onMouseLeave={setHoveredItem}
             handleMenuItemClick={handleMenuItemClick}
-            isMenuOpenForContent={isMenuOpen && isLargeScreen !== null && isLargeScreen}
-            isDynamicLoading={status === 'loading'}
+            isMenuOpenForContent={isMenuOpen && !isOverlayVisible}
           />
+          {/* <SidebarContent
+            menuItems={dynamicMenuItems}
+            hoveredItem={hoveredItem}
+            onMouseEnter={setHoveredItem}
+            onMouseLeave={setHoveredItem}
+            handleMenuItemClick={handleMenuItemClick}
+            isMenuOpenForContent={isMenuOpen && !isOverlayVisible}
+          /> */}
           {/* 伸縮して空白を埋めるクリック可能な領域 */}
           <div
             className="flex-grow w-full cursor-pointer"
@@ -194,14 +213,21 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
                 className="flex-grow overflow-y-auto w-full flex flex-col"
               >
                 <SidebarContent
-                  menuItems={menuItems}
+                  menuItems={staticMenuItems}
                   hoveredItem={hoveredItem}
                   onMouseEnter={setHoveredItem}
                   onMouseLeave={setHoveredItem}
                   handleMenuItemClick={handleOverlayItemClick}
                   isMenuOpenForContent={true}
-                  isDynamicLoading={status === 'loading'}
                 />
+                {/* <SidebarContent
+                  menuItems={dynamicMenuItems}
+                  hoveredItem={hoveredItem}
+                  onMouseEnter={setHoveredItem}
+                  onMouseLeave={setHoveredItem}
+                  handleMenuItemClick={handleOverlayItemClick}
+                  isMenuOpenForContent={true}
+                /> */}
                 {/* 伸縮して空白を埋めるクリック可能な領域 */}
                 <div
                   className="flex-grow w-full cursor-pointer"

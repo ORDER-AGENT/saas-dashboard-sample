@@ -7,13 +7,12 @@ import { usePathname } from 'next/navigation';
 import SimpleSpinner from '@/components/loader/SimpleSpinner';
 
 interface SidebarContentProps {
-  menuItems: SidebarMenuItemType[];
+  menuItems: SidebarMenuItemType[] | null;
   hoveredItem: string | null;
   onMouseEnter: (key: string) => void;
   onMouseLeave: (key: string | null) => void;
   handleMenuItemClick: (key: string) => void;
   isMenuOpenForContent: boolean; // コンテンツの表示/非表示を制御するisMenuOpen
-  isDynamicLoading: boolean;
 }
 
 export default function SidebarContent({
@@ -23,20 +22,22 @@ export default function SidebarContent({
   onMouseLeave,
   handleMenuItemClick,
   isMenuOpenForContent,
-  isDynamicLoading,
 }: SidebarContentProps) {
   const pathname = usePathname();
 
-  // 静的なメニュー項目と動的なメニュー項目を分離
-  const staticMenuItems = menuItems.filter(item => !(item.type === 'item' && item.isDynamic));
-  const dynamicMenuItems = menuItems.filter(item => item.type === 'item' && item.isDynamic);
+  if (!menuItems) {
+    return (
+      <div className="flex items-center justify-center w-full py-4">
+        <SimpleSpinner size={isMenuOpenForContent ? 15 : 10} />
+      </div>
+    );
+  }
 
   return (
     <>
       {/* メニュー項目をループでレンダリングするエリア */}
       <div className="flex flex-col w-full">
-        {/* 静的なメニュー項目を常に表示 */}
-        {staticMenuItems.map((item) => {
+        {menuItems.map((item) => {
           if (item.type === 'divider') {
             return <div key={item.key} className="my-2 w-4/5 mx-auto border-t border-gray-200 dark:border-gray-700" />;
           }
@@ -56,34 +57,6 @@ export default function SidebarContent({
             />
           );
         })}
-
-        {/* 動的なメニュー項目はロード状態に応じて表示を切り替え */}
-        {isDynamicLoading ? (
-          <div className="flex items-center justify-center w-full py-4">
-            <SimpleSpinner size={isMenuOpenForContent ? 15 : 10} />
-          </div>
-        ) : (
-          dynamicMenuItems.map((item) => {
-            if (item.type === 'divider') {
-              return <div key={item.key} className="my-2 w-4/5 mx-auto border-t border-gray-200 dark:border-gray-700" />;
-            }
-            return (
-              <SidebarMenuItem
-                key={item.key}
-                icon={item.icon}
-                text={item.text}
-                isMenuOpen={isMenuOpenForContent}
-                isSelected={pathname === item.path}
-                isHovered={hoveredItem === item.key}
-                onMouseEnter={() => onMouseEnter(item.key)}
-                onMouseLeave={() => onMouseLeave(null)}
-                onClick={() => handleMenuItemClick(item.key)}
-                path={item.path}
-                isExternal={item.isExternal ?? false}
-              />
-            );
-          })
-        )}
       </div>
     </>
   );

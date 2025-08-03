@@ -6,7 +6,6 @@ export interface MenuItem {
   icon: IconType;
   text: string;
   path: string;
-  isDynamic: boolean;
   roles?: string[];
   displayInFooter?: boolean;
   isExternal?: boolean;
