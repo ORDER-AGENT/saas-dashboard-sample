@@ -13,7 +13,7 @@ interface AppHeaderProps {
 export default function AppHeader({ onMenuToggleClick }: AppHeaderProps) {
   //const { status } = useSession();
   //const isAdmin = status === 'authenticated';
-  const isAdmin = false;
+  const isDebug = true;
   const [isClient, setIsClient] = useState(false);
 
   // windowDimensions の初期値を SSR 時とクライアントで一致させる
@@ -84,7 +84,7 @@ export default function AppHeader({ onMenuToggleClick }: AppHeaderProps) {
       <h1 className="flex-grow m-0 pl-5 text-[1.2em]">{/*アプリケーションヘッダー*/}</h1>
       <div className="pr-5 text-[0.9em] text-[#555] text-right">
         {/* デバッグ表示のコンテナを flex で横並びに */}
-        {isAdmin && ( // isAdmin が true の場合のみデバッグ情報を表示
+        {isDebug && ( // デバッグ情報を表示
           // マウント後にクライアントサイドでのみこのブロックをレンダリングする
           isClient && (
             <div className="flex items-center justify-end gap-3.5"> {/* gap を調整 */}

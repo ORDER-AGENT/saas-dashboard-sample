@@ -13,6 +13,7 @@ interface SidebarContentProps {
   onMouseLeave: (key: string | null) => void;
   handleMenuItemClick: (key: string) => void;
   isMenuOpenForContent: boolean; // コンテンツの表示/非表示を制御するisMenuOpen
+  isOverlay: boolean;
 }
 
 export default function SidebarContent({
@@ -22,6 +23,7 @@ export default function SidebarContent({
   onMouseLeave,
   handleMenuItemClick,
   isMenuOpenForContent,
+  isOverlay,
 }: SidebarContentProps) {
   const pathname = usePathname();
 
@@ -54,6 +56,7 @@ export default function SidebarContent({
               onClick={() => handleMenuItemClick(item.key)}
               path={item.path}
               isExternal={item.isExternal ?? false}
+              isOverlay={isOverlay}
             />
           );
         })}

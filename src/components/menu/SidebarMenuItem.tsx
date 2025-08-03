@@ -17,6 +17,7 @@ interface SidebarMenuItemProps {
   onClick: () => void; // クリック時のハンドラ
   path: string; // リンク先パス
   isExternal: boolean; // 外部リンクかどうかのフラグ
+  isOverlay: boolean;
 }
 
 export default function SidebarMenuItem({
@@ -30,6 +31,7 @@ export default function SidebarMenuItem({
   onClick,
   path,
   isExternal,
+  isOverlay,
 }: SidebarMenuItemProps) {
   
   // メニュー項目全体のベーススタイル
@@ -48,7 +50,7 @@ export default function SidebarMenuItem({
   // テキスト部分のスタイル
   const textClasses = `
     text-base overflow-hidden transition-all duration-[var(--sidebar-animation-duration)] ease-in-out whitespace-nowrap
-    ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+    ${isMenuOpen ? `${!isOverlay ? 'lg:opacity-100 md:opacity-0' : 'opacity-100'}` : 'opacity-0 pointer-events-none'}
   `;
 
   const handleClick = () => {

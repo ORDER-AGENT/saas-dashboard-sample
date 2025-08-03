@@ -40,7 +40,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
   };
 
   // ログイン/ログアウトメニュー項目をレンダリングするヘルパー関数
-  const renderAuthMenuItem = (isMenuOpenForText: boolean, keyPrefix: string) => {
+  const renderAuthMenuItem = (isMenuOpenForText: boolean, keyPrefix: string, isOverlay: boolean) => {
     const menuOpenState = isMenuOpenForText;
  
     return isLoggedIn ? (
@@ -56,6 +56,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         onClick={() => !isOverlayVisible ? handleMenuItemClick('logout') : handleOverlayItemClick('logout')}
         path="/"
         isExternal={false}
+        isOverlay={isOverlay}
       />
     ) : (
       <SidebarMenuItem
@@ -70,6 +71,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         onClick={() => !isOverlayVisible ? handleMenuItemClick('admin') : handleOverlayItemClick('admin')}
         path="/admin"
         isExternal={false}
+        isOverlay={isOverlay}
       />
     );
   };
@@ -166,7 +168,8 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
             onMouseEnter={setHoveredItem}
             onMouseLeave={setHoveredItem}
             handleMenuItemClick={handleMenuItemClick}
-            isMenuOpenForContent={isMenuOpen && isLargeScreen !== null && isLargeScreen}
+            isMenuOpenForContent={isMenuOpen && (isLargeScreen !== false)}
+            isOverlay={false}
           />
           {/* <SidebarContent
             menuItems={dynamicMenuItems}
@@ -174,7 +177,8 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
             onMouseEnter={setHoveredItem}
             onMouseLeave={setHoveredItem}
             handleMenuItemClick={handleMenuItemClick}
-            isMenuOpenForContent={isMenuOpen && !isOverlayVisible}
+            isMenuOpenForContent={isMenuOpen && (isLargeScreen !== false)}
+            isOverlay={false}
           /> */}
           {/* 伸縮して空白を埋めるクリック可能な領域 */}
           <div
@@ -186,7 +190,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
         {/* ログイン/ログアウトボタンをサイドバー全体の最下部に追加 */}
         <div className="w-full h-[60px] bg-white flex items-center z-10 mt-auto">
           {
-            renderAuthMenuItem(isMenuOpen, 'desktop')
+            renderAuthMenuItem(isMenuOpen && (isLargeScreen !== false), 'desktop', false)
           }
         </div>
       </div>
@@ -219,6 +223,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
                   onMouseLeave={setHoveredItem}
                   handleMenuItemClick={handleOverlayItemClick}
                   isMenuOpenForContent={true}
+                  isOverlay={true}
                 />
                 {/* <SidebarContent
                   menuItems={dynamicMenuItems}
@@ -227,6 +232,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
                   onMouseLeave={setHoveredItem}
                   handleMenuItemClick={handleOverlayItemClick}
                   isMenuOpenForContent={true}
+                  isOverlay={true}
                 /> */}
                 {/* 伸縮して空白を埋めるクリック可能な領域 */}
                 <div
@@ -237,7 +243,7 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
               {/* ログイン/ログアウトボタンをサイドメニュー最下部に追加（小画面用） */}
               <div className="w-full h-[60px] flex-shrink-0 bg-white mt-auto flex items-center">
                 {
-                  renderAuthMenuItem(true, 'mobile')
+                  renderAuthMenuItem(true, 'mobile', true)
                 }
             </div>
           </div>
