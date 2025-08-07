@@ -112,6 +112,22 @@ export default function Sidebar({ onMenuToggleClick, isMenuOpen }: SidebarProps)
   //   };
   //   fetchDynamicMenuItems();
   // }, []);
+  /*
+    // Convexからリンク集のデータを取得
+    //const dynamicLinks = useQuery(api.link.getLinks);
+
+    // Convex等から取得した外部リンクをメニュー項目形式に変換
+    const dynamicMenuItems: SidebarMenuItemType[] | null = dynamicLinks
+    ? dynamicLinks.map(link => ({
+        type: 'item',
+        key: link._id,
+        icon: link.iconUrl || '/default-link-icon.png', // アイコンURLを直接渡す
+        text: link.title,
+        path: link.url,
+        isExternal: true, // 外部リンクであることを示す
+      }))
+    : null; // dynamicLinksがundefinedの場合はnull
+  */
 
   // メニュー項目クリックハンドラを共通化
   const handleMenuItemClick = (key: string) => {

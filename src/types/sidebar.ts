@@ -3,7 +3,7 @@ import { IconType } from 'react-icons';
 export interface MenuItem {
   type: 'item';
   key: string;
-  icon: IconType;
+  icon: IconType | string;
   text: string;
   path: string;
   roles?: string[];

@@ -27,7 +27,7 @@ export default function SidebarContent({
 }: SidebarContentProps) {
   const pathname = usePathname();
 
-  if (!menuItems) {
+  if (!menuItems || menuItems.length === 0) {
     return (
       <div className="flex items-center justify-center w-full py-4">
         <SimpleSpinner size={isMenuOpenForContent ? 15 : 10} />
